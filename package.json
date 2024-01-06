@@ -84,7 +84,7 @@
     "kit"
   ],
   "author": "b2network",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/b2network/b2-wallet-kit/issues"
   },
