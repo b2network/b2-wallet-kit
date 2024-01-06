@@ -63,5 +63,27 @@
     "vite": "^4.5.1",
     "vite-plugin-dts": "^3.7.0",
     "wagmi": "^1.4.11"
-  }
+  },
+  "description": "``` npm i ```",
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b2network/b2-wallet-kit.git"
+  },
+  "keywords": [
+    "b2",
+    "btc",
+    "eth",
+    "wallet",
+    "kit"
+  ],
+  "author": "b2network",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/b2network/b2-wallet-kit/issues"
+  },
+  "homepage": "https://github.com/b2network/b2-wallet-kit#readme"
 }
