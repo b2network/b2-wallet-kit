@@ -17,7 +17,8 @@
       "import": "./lib/b2-wallet-kit.js",
       "types": "./lib/index.d.ts",
       "require": "./lib/b2-wallet-kit.umd.cjs"
-    }
+    },
+    "./lib/style.css": "./lib/style.css"
   },
   "style": "./lib/style.css",
   "scripts": {

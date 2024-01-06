@@ -1,19 +1,19 @@
 ## B2WalletKit
-#### 安装依赖
+
+#### install
 
 ```
 npm i
 ```
 
-#### 开发组件（example）
+#### dev
 
 ```
 npm run dev
 ```
 
-#### 组件打包
+#### build
 
 ```
 npm run build
 ```
-
