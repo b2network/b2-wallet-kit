@@ -3,18 +3,18 @@
 #### 安装依赖
 
 ```
-yarn
+npm i
 ```
 
 #### 开发组件（example）
 
 ```
-yarn dev
+npm run dev
 ```
 
 #### 组件打包
 
 ```
-yarn build
+npm run build
 ```
 
