@@ -1,5 +1,4 @@
-## Vite React Packages
-
+## B2WalletKit
 #### 安装依赖
 
 ```
