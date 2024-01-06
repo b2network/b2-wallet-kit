@@ -5,6 +5,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./lib/b2-wallet-kit.umd.cjs",
   "module": "./lib/b2-wallet-kit.js",
   "typings": "./lib/index.d.ts",
