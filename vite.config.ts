@@ -32,7 +32,7 @@ export default defineConfig({
     cssTarget: 'chrome61',
     lib: {
       entry: resolve('packages/index.ts'),
-      name: 'b2-wallet-kit',
+      name: '@b2network/b2-wallet-kit',
       fileName: 'b2-wallet-kit',
     },
     rollupOptions: {
