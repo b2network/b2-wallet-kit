@@ -235,5 +235,5 @@ export const useBtc = () => {
     return getAddress(`0x${address}`)
   }, [publicKey])
 
-  return { ...ctx.state, ethAddress, connect, disconnect, connector, signMessage, provider, sendBitcoin, setCurrentWallet }
+  return { ...ctx.state, ethAddress, connect, disconnect, connector, signMessage, provider, sendBitcoin, setCurrentWallet, ConnectorMap }
 }
