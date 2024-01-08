@@ -1,15 +1,16 @@
 import React from 'react';
 import { B2ModalProvider } from '../packages';
 import { WagmiConfig, WindowProvider, configureChains, createConfig } from 'wagmi';
-import { b2test } from '@b2network/b2-wallet-connector';
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../packages/btcWallet';
 import Login from './Login';
+import { b2test } from '@b2network/b2-wallet-connector';
+import { Chain } from 'viem';
 
 const { chains, publicClient } = configureChains(
-  [b2test],
+  [b2test as Chain],
   [publicProvider()]
 );
 const wagmiConfig = createConfig({

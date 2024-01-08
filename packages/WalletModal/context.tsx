@@ -70,7 +70,7 @@ export const B2ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }
   useEffect(() => {
-    autoConnect()
+    // autoConnect()
   }, [])
 
 
