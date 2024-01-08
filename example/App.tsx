@@ -9,6 +9,7 @@ import { B2BtcProvider } from '../packages/btcWallet';
 import Login from './Login';
 
 const { chains, publicClient } = configureChains(
+  //@ts-ignore
   [b2test],
   [publicProvider()]
 );

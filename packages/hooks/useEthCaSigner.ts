@@ -5,7 +5,7 @@ import { Connector } from "../btcWallet/connectors/types"
 import { WalletTypes } from "../types/types"
 
 
-const useEthSigner = (wallet: WalletTypes) => {
+const useEthCaSigner = (wallet: WalletTypes) => {
   const { data: walletClient } = useWalletClient();
   const injected = useMemo(() => {
     if (wallet === WalletTypes.WALLET_METAMASK) return window.ethereum
@@ -31,5 +31,5 @@ const useEthSigner = (wallet: WalletTypes) => {
 
 
 export {
-  useEthSigner
+  useEthCaSigner
 };

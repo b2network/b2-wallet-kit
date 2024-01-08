@@ -3,7 +3,7 @@ import { useBtc } from "../packages/btcWallet"
 import { useB2Disconnect, useCaSigner } from "../packages/hooks"
 import { useBtcCaSigner } from "../packages/hooks/useBtcCaSigner"
 import { useCaAccount } from "../packages/hooks/useCaAccount"
-import { useEthSigner } from "../packages/hooks/useEthCaSigner"
+import { useEthCaSigner } from "../packages/hooks/useEthCaSigner"
 import { WalletCollection, WalletTypes } from "../packages/types/types"
 
 
@@ -12,7 +12,7 @@ const Login = () => {
   const { address, isConnected,walletType } = useCaAccount()
   const signer = useCaSigner({ signerType: walletType })
   console.log(signer,'signer---1-')
-  const { getEthCaSigner } = useEthSigner(WalletTypes.WALLET_OKX_EVM)
+  const { getEthCaSigner } = useEthCaSigner(WalletTypes.WALLET_OKX_EVM)
 
   const { getBtcSigner } = useBtcCaSigner('Unisat')
 
