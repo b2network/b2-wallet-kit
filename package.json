@@ -27,7 +27,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@b2network/aa-sdk": "^1.0.16",
+    "@b2network/aa-sdk": "^1.0.17",
     "@b2network/b2-wallet-connector": "^0.0.5",
     "elliptic": "^6.5.4",
     "react-modal": "^3.16.1",

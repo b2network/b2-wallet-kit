@@ -22,6 +22,7 @@ export declare const useBtc: () => {
         txhash: string;
     } | undefined>;
     setCurrentWallet: (w: WalletTypes | undefined) => void;
+    ConnectorMap: Record<BtcConnectorName, Connector>;
     isConnecting: boolean;
     isConnected: boolean;
     address?: string | undefined;

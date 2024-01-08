@@ -1,23 +1,25 @@
 import React from 'react';
 import { B2ModalProvider } from '../packages';
 import { WagmiConfig, WindowProvider, configureChains, createConfig } from 'wagmi';
+import { b2test } from '@b2network/b2-wallet-connector';
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../packages/btcWallet';
 import Login from './Login';
-import { b2test } from '@b2network/b2-wallet-connector';
-import { Chain } from 'viem';
 
 const { chains, publicClient } = configureChains(
-  [b2test as Chain],
+  //@ts-ignore
+  [b2test],
   [publicProvider()]
 );
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: [
+    //@ts-ignore
     new MetaMaskConnector({ chains }),
     new InjectedConnector({
+      //@ts-ignore
       chains,
       options: {
         name: 'OKX Wallet',
