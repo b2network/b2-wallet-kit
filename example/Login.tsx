@@ -9,8 +9,9 @@ import { WalletCollection, WalletTypes } from "../packages/types/types"
 
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
-  const { address, isConnected } = useCaAccount()
-  // const signer = useCaSigner({ signerType: 'eth' })
+  const { address, isConnected,walletType } = useCaAccount()
+  const signer = useCaSigner({ signerType: walletType })
+  console.log(signer,'signer---1-')
   const { getEthCaSigner } = useEthSigner(WalletTypes.WALLET_OKX_EVM)
 
   const { getBtcSigner } = useBtcCaSigner('Unisat')

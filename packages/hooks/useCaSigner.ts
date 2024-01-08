@@ -6,7 +6,6 @@ import { Connector } from "../btcWallet/connectors/types"
 type UseCaSignerProps = {
   signerType: string,
   btcConnector?: Connector,
-
 }
 
 const useCaSigner = ({
@@ -14,13 +13,6 @@ const useCaSigner = ({
   btcConnector
 }: UseCaSignerProps) => {
   const { data: walletClient } = useWalletClient()
-  const { connectors } = useConnect()
-  const { connector } = useAccount()
-  console.log({
-    walletClient,
-    connectors,
-    connector
-  }, 'useCaSigner')
   const signer = useMemo(() => {
     if (signerType === 'eth' && walletClient) {
       return convertWalletClientToAccountSigner(walletClient)
