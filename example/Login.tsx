@@ -9,23 +9,22 @@ import { WalletCollection, WalletTypes } from "../packages/types/types"
 
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
-  const { address, isConnected,walletType } = useCaAccount()
+  const { address, isConnected, walletType } = useCaAccount()
   const signer = useCaSigner({ signerType: walletType })
-  console.log(signer,'signer---1-')
-  // const { getEthCaSigner } = useEthCaSigner(WalletTypes.WALLET_OKX_EVM)
 
-  // const { getBtcSigner } = useBtcCaSigner('Unisat')
-
+  const { getBtcSigner } = useBtcCaSigner()
+  const { getEthCaSigner } = useEthCaSigner()
   const { disconnect } = useB2Disconnect()
 
   const getEvmWalletSigner = async () => {
-    // const s = await getEthCaSigner()
-    // console.log(s, 'ssss')
+    const s = await getEthCaSigner(WalletTypes.WALLET_METAMASK)
+    const acc = await s?.getAddress()
+    s?.signMessage('hello')
   }
 
   const getBtcWalletSigner = async () => {
-    // const s = await getBtcSigner()
-    // console.log(s, 'bbbbtcSigner')
+    const s = await getBtcSigner('Unisat')
+    console.log(s, 'bbbbtcSigner', s.getAddress())
   }
 
 

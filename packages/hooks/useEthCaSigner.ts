@@ -2,21 +2,28 @@ import { convertBTCConnectorToAccountSigner, convertWalletClientToAccountSigner 
 import {  useWalletClient } from "wagmi"
 import { Connector } from "../btcWallet/connectors/types"
 import { WalletTypes } from "../types/types"
+import { b2test } from "@b2network/b2-wallet-connector"
+import { Address, createWalletClient, custom } from "viem"
 
 
 const useEthCaSigner = () => {
-  const { data: walletClient } = useWalletClient();
+  let injected:any
   const connect = async (wallet: WalletTypes) => {
-    let injected
     if (wallet === WalletTypes.WALLET_METAMASK) injected = window.ethereum
     if (wallet === WalletTypes.WALLET_OKX_EVM) injected = window.okxwallet
     const res = await injected?.request({ method: 'eth_requestAccounts' });
-    return res;
+    return res as Address[];
   }
   const getEthCaSigner = async (wallet: WalletTypes) => {
     const accounts = await connect(wallet)
-    if (walletClient) {
-      return convertWalletClientToAccountSigner(walletClient)
+    const client = createWalletClient({
+      //@ts-ignore
+      chain: b2test,
+      account: accounts[0],
+      transport: custom(injected)
+    })
+    if (client) {
+      return convertWalletClientToAccountSigner(client)
     }
   }
   return {
