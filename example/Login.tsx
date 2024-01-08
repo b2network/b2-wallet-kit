@@ -10,11 +10,11 @@ import { WalletCollection, WalletTypes } from "../packages/types/types"
 
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
-  const { address, isConnected,walletType,ethAddress } = useCaAccount()
-  const signer = useCaSigner({ signerType: walletType })
+  const { address, isConnected, walletType, ethAddress } = useCaAccount()
+  const { connector } = useBtc()
+  const signer = useCaSigner({ signerType: 'btc', btcConnector: connector });
   const caProvider = useScaProvider(ethAddress as Address, signer);
 
-  console.log(signer,'signer---1-')
   const { getEthCaSigner } = useEthSigner(WalletTypes.WALLET_OKX_EVM)
 
   const { getBtcSigner } = useBtcCaSigner('Unisat')
@@ -36,13 +36,16 @@ const Login = () => {
   }
 
   return (
-    <div style={{ width: '100vw', marginTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+    <div>
       <div onClick={() => {
         handleOpenConnectModal()
       }}>
         Login1
       </div>
-      <div >Transfer</div>
+      <div onClick={() => {
+        console.log(caProvider?.signMessage.toString())
+        signer?.signMessage('hello').then(console.log)
+      }}>Sign</div>
       <div onClick={getEvmWalletSigner}>get Eth Signer</div>
 
       <div onClick={getBtcWalletSigner}>

@@ -1,4 +1,4 @@
-import { Connector as BTCConnector  } from '../btcWallet/connectors/types'
+import { Connector as BTCConnector } from '../btcWallet/connectors/types'
 import { SignTypedDataParams, SmartAccountSigner } from '@b2network/aa-sdk'
 import { Hex, WalletClient, concatHex, keccak256, zeroAddress } from 'viem'
 import ecPubKeyToETHAddress from './ecPubKeyToETHAddress'
@@ -27,8 +27,8 @@ export const convertWalletClientToAccountSigner = (
           typeof message === 'string'
             ? message
             : {
-                raw: message,
-              },
+              raw: message,
+            },
       })
       return concatHex(['0x00', sig, ethAddress])
     },

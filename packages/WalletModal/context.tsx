@@ -41,17 +41,6 @@ export const B2ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const handleSetWalletCollection = (w: WalletCollection) => {
     setWalletCollection(w)
   }
-
-  const providerValue = {
-    openConnectModal,
-    hanldeCloseConnectModal,
-    handleOpenConnectModal,
-    openDisconnectModal,
-    handleCloseDisconnectModal,
-    handleOpenDisconnectModal,
-    handleSetWalletCollection
-  };
-
   const autoConnect = async () => {
     const w = getWalletFromLocal()
     if (w === WalletTypes.WALLET_METAMASK || w === WalletTypes.WALLET_OKX_EVM) {
@@ -69,9 +58,18 @@ export const B2ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       return
     }
   }
-  useEffect(() => {
-    // autoConnect()
-  }, [])
+
+  const providerValue = {
+    openConnectModal,
+    hanldeCloseConnectModal,
+    handleOpenConnectModal,
+    openDisconnectModal,
+    handleCloseDisconnectModal,
+    handleOpenDisconnectModal,
+    handleSetWalletCollection,
+    autoConnect
+  };
+
 
 
   return <B2ModalContext.Provider value={providerValue}>
