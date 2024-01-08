@@ -1,24 +1,20 @@
 import { convertBTCConnectorToAccountSigner, convertWalletClientToAccountSigner } from "../utils/signerAdapters"
-import { useEffect, useMemo } from "react"
-import { useAccount, useConnect, useWalletClient } from "wagmi"
+import {  useWalletClient } from "wagmi"
 import { Connector } from "../btcWallet/connectors/types"
 import { WalletTypes } from "../types/types"
 
 
-const useEthCaSigner = (wallet: WalletTypes) => {
+const useEthCaSigner = () => {
   const { data: walletClient } = useWalletClient();
-  const injected = useMemo(() => {
-    if (wallet === WalletTypes.WALLET_METAMASK) return window.ethereum
-    if (wallet === WalletTypes.WALLET_OKX_EVM) return window.okxwallet
-  }, [wallet])
-
-  const connect = async () => {
+  const connect = async (wallet: WalletTypes) => {
+    let injected
+    if (wallet === WalletTypes.WALLET_METAMASK) injected = window.ethereum
+    if (wallet === WalletTypes.WALLET_OKX_EVM) injected = window.okxwallet
     const res = await injected?.request({ method: 'eth_requestAccounts' });
     return res;
   }
-
-  const getEthCaSigner = async () => {
-    const accounts = await connect()
+  const getEthCaSigner = async (wallet: WalletTypes) => {
+    const accounts = await connect(wallet)
     if (walletClient) {
       return convertWalletClientToAccountSigner(walletClient)
     }

@@ -3,18 +3,13 @@
 import { convertBTCConnectorToAccountSigner } from "../utils/signerAdapters"
 import { BtcConnectorName, useBtc } from "../btcWallet"
 
-
-const useBtcCaSigner = (btcSingerType: BtcConnectorName) => {
+const useBtcCaSigner = () => {
   const { ConnectorMap } = useBtc()
-
-  const connector = ConnectorMap[btcSingerType]
-
-  const getBtcSigner = async () => {
+  const getBtcSigner = async (btcSingerType: BtcConnectorName) => {
+    const connector = ConnectorMap[btcSingerType]
     await connector && connector.connect()
     return convertBTCConnectorToAccountSigner(connector)
   }
-
-
   return {
     getBtcSigner
   }

@@ -12,20 +12,20 @@ const Login = () => {
   const { address, isConnected,walletType } = useCaAccount()
   const signer = useCaSigner({ signerType: walletType })
   console.log(signer,'signer---1-')
-  const { getEthCaSigner } = useEthCaSigner(WalletTypes.WALLET_OKX_EVM)
+  // const { getEthCaSigner } = useEthCaSigner(WalletTypes.WALLET_OKX_EVM)
 
-  const { getBtcSigner } = useBtcCaSigner('Unisat')
+  // const { getBtcSigner } = useBtcCaSigner('Unisat')
 
   const { disconnect } = useB2Disconnect()
 
   const getEvmWalletSigner = async () => {
-    const s = await getEthCaSigner()
-    console.log(s, 'ssss')
+    // const s = await getEthCaSigner()
+    // console.log(s, 'ssss')
   }
 
   const getBtcWalletSigner = async () => {
-    const s = await getBtcSigner()
-    console.log(s, 'bbbbtcSigner')
+    // const s = await getBtcSigner()
+    // console.log(s, 'bbbbtcSigner')
   }
 
 
