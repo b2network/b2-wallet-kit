@@ -11,7 +11,8 @@ type GlobalContextType = {
   handleOpenConnectModal: () => void;
   handleOpenDisconnectModal: () => void;
   handleCloseDisconnectModal: () => void;
-  handleSetWalletCollection: (w:WalletCollection)=>void
+  handleSetWalletCollection: (w: WalletCollection) => void
+  autoConnect: ()=>void
 };
 
 const globalContextDefaultValues: GlobalContextType = {
@@ -20,7 +21,8 @@ const globalContextDefaultValues: GlobalContextType = {
   handleOpenConnectModal: () => { },
   handleCloseDisconnectModal: () => { },
   handleOpenDisconnectModal: () => { },
-  handleSetWalletCollection: (w:WalletCollection) => { }
+  handleSetWalletCollection: (w: WalletCollection) => { },
+  autoConnect: () => { }
 };
 
 const B2ModalContext = createContext(globalContextDefaultValues);

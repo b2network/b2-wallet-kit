@@ -19,7 +19,7 @@ const Login = () => {
   const getEvmWalletSigner = async () => {
     const s = await getEthCaSigner(WalletTypes.WALLET_METAMASK)
     const acc = await s?.getAddress()
-    s?.signMessage('hello')
+    s?.signMessage('hello').then(console.log)
   }
 
   const getBtcWalletSigner = async () => {
