@@ -3,17 +3,15 @@
 #### install
 
 ```
-npm i
+npm i @b2network/b2-wallet-kit
+```
+or
+```
+yarn add @b2network/b2-wallet-kit
 ```
 
-#### dev
 
-```
-npm run dev
-```
 
-#### build
+#### usage
 
-```
-npm run build
-```
+[View the example folder](https://github.com/b2network/b2-wallet-kit/tree/main/example)
