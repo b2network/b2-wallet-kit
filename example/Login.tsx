@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useB2Modal } from "../packages"
 import { useBtc } from "../packages/btcWallet"
 import { useB2Disconnect, useCaSigner } from "../packages/hooks"
@@ -10,9 +11,10 @@ import { WalletCollection, WalletTypes } from "../packages/types/types"
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
-  const signer = useCaSigner({ signerType: walletType })
-  const { currentWallet } = useBtc()
-
+  const { currentWallet, connector } = useBtc()
+  const signer = useCaSigner({ signerType: walletType, btcConnector: connector })
+  console.log({ connector, signer })
+  const { autoConnect } = useB2Modal()
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
   const { disconnect } = useB2Disconnect()
@@ -20,14 +22,26 @@ const Login = () => {
   const getEvmWalletSigner = async () => {
     const s = await getEthCaSigner(WalletTypes.WALLET_METAMASK)
     const acc = await s?.getAddress()
-    s?.signMessage('hello').then(console.log)
   }
 
   const getBtcWalletSigner = async () => {
     const s = await getBtcSigner('Unisat')
-    console.log(s, 'bbbbtcSigner', s.getAddress())
+    s?.signMessage('hello').then(console.log)
+  }
+  const init = async () => {
+    const res = await signer?.signMessage('hello')
+    console.log({ res, connector })
   }
 
+  useEffect(() => {
+    autoConnect()
+  }, [])
+
+  useEffect(() => {
+    if (signer) {
+      init()
+    }
+  }, [signer])
 
   return (
     <div style={{ width: '100vw', marginTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>

@@ -163,9 +163,12 @@ export const useBtc = () => {
 
   const connector = useMemo(() => {
     if (ctx.state.connectorName) {
-      return ConnectorMap[ctx.state.connectorName]
+      const c = ConnectorMap[ctx.state.connectorName]
+      c.address = address;
+      c.publicKey = publicKey
+      return c
     }
-  }, [ConnectorMap, ctx.state.connectorName])
+  }, [ConnectorMap, connectorName,address])
 
   const disconnect = useCallback(() => {
     ctx.dispatch({ type: 'disconnected' })
