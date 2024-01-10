@@ -34,6 +34,7 @@ const getValidatorProvider = async (
     ids,
     weights,
     threshold,
+    usePaymaster:true,
     opts: {
       providerConfig: {
         chain,
@@ -55,10 +56,10 @@ const getValidatorProvider = async (
         entryPointAddress: ENTRYPOINT_ADDRESS,
         validatorAddress: SW_VALIDATOR_ADDRESS,
       },
-      // paymasterConfig: {
-      //   policy: 'VERIFYING_PAYMASTER',
-      //   baseURL: PM_BASE_URL,
-      // },
+      paymasterConfig: {
+        policy: 'VERIFYING_PAYMASTER',
+        baseURL: PM_BASE_URL,
+      },
     },
   })
 }
