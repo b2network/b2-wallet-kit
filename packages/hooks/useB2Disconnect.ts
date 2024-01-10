@@ -4,6 +4,7 @@ import { useAccount, useDisconnect } from "wagmi";
 import { useBtc } from "../btcWallet"
 import { useCallback } from "react";
 import { WalletTypes } from "../types/types";
+import { clearWalletFromLocal } from "../utils/localstore";
 
 
 const useB2Disconnect = () => {
@@ -15,6 +16,7 @@ const useB2Disconnect = () => {
       disconnect()
     }
     setCurrentWallet(undefined)
+    clearWalletFromLocal()
   }, [currentWallet])
   return {
     disconnect: handleDisconnect

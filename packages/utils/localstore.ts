@@ -13,3 +13,7 @@ export const saveWalletToLocal = (w: WalletTypes) => {
 export const getWalletFromLocal = () => {
   return localStorage.getItem(KEY_WALLET) || undefined
 }
+export const clearWalletFromLocal = () => {
+  localStorage.removeItem(KEY_WALLET)
+  return 
+}

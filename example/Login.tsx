@@ -6,14 +6,16 @@ import { useBtcCaSigner } from "../packages/hooks/useBtcCaSigner"
 import { useCaAccount } from "../packages/hooks/useCaAccount"
 import { useEthCaSigner } from "../packages/hooks/useEthCaSigner"
 import { WalletCollection, WalletTypes } from "../packages/types/types"
+import { useWalletClient } from "wagmi"
 
 
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
   const { currentWallet, connector } = useBtc()
-  const signer = useCaSigner({ signerType: walletType, btcConnector: connector })
-  console.log({ connector, signer })
+  const { data } = useWalletClient();
+  const signer = useCaSigner({ signerType: walletType, btcConnector: connector, walletClient: data })
+  console.log({ signer, walletType, data })
   const { autoConnect } = useB2Modal()
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
@@ -29,8 +31,8 @@ const Login = () => {
     s?.signMessage('hello').then(console.log)
   }
   const init = async () => {
-    const res = await signer?.signMessage('hello')
-    console.log({ res, connector })
+    // const res = await signer?.signMessage('hello')
+    // console.log({ res, connector })
   }
 
   useEffect(() => {
