@@ -69,12 +69,21 @@ export const convertBTCConnectorToAccountSigner = (
       const vrsSigBuff = await connector
         .signMessage(textMsg)
         .then((encoded) => Buffer.from(encoded, 'base64'))
+      const walletType = connector.name;
       const rsvSigBuff = Buffer.concat([
         Buffer.from(vrsSigBuff.subarray(1)),
-        Buffer.from([vrsSigBuff[0]]),
+        Buffer.from([
+          walletType === 'Unisat'
+            ? vrsSigBuff[0]
+            : vrsSigBuff[0] - 0x1f,
+        ]),
       ])
+      // const rsvSigBuff = Buffer.concat([
+      //   Buffer.from(vrsSigBuff.subarray(1)),
+      //   Buffer.from([vrsSigBuff[0]]),
+      // ])
       const ethAddress = ecPubKeyToETHAddress(connector.publicKey)!
-      return concatHex([`0x01`, `0x${rsvSigBuff.toString('hex')}`, ethAddress])
+      return concatHex([`0x01`, `0x${rsvSigBuff.toString('hex')}`, ethAddress.toLocaleLowerCase() as `0x${string}`])
     },
   }
 }
