@@ -12,11 +12,11 @@ import { useWalletClient } from "wagmi"
 const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
-  const { currentWallet, connector } = useBtc()
+  const { currentWallet, connector,connectorName,network } = useBtc()
   const { data } = useWalletClient();
   const signer = useCaSigner({ signerType: walletType, btcConnector: connector, walletClient: data })
   console.log({ signer, walletType, data })
-  const { autoConnect } = useB2Modal()
+  // const { autoConnect } = useB2Modal()
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
   const { disconnect } = useB2Disconnect()
@@ -31,19 +31,9 @@ const Login = () => {
     s?.signMessage('hello').then(console.log)
   }
   const init = async () => {
-    // const res = await signer?.signMessage('hello')
-    // console.log({ res, connector })
+    const res = await signer?.signMessage('hello')
+    console.log({ res, connectorName })
   }
-
-  useEffect(() => {
-    autoConnect()
-  }, [])
-
-  useEffect(() => {
-    if (signer) {
-      init()
-    }
-  }, [signer])
 
   return (
     <div style={{ width: '100vw', marginTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
@@ -52,6 +42,9 @@ const Login = () => {
       }}>
         Login1
       </div>
+      <div onClick={() => { 
+        init()
+      }}>Sign ({network})</div>
       <div onClick={getEvmWalletSigner}>get Eth Signer</div>
 
       <div onClick={getBtcWalletSigner}>
