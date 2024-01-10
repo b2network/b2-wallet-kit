@@ -11,6 +11,7 @@ const Login = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
   const signer = useCaSigner({ signerType: walletType })
+  const { currentWallet } = useBtc()
 
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
