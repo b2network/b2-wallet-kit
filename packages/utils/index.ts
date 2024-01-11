@@ -6,7 +6,8 @@ export const TOKENSERVICE_URL = 'https://eps-api-test.bsquared.network'
 export const CHAIN_ID = b2test.id
 export const PageSize = 8;
 
-export const BUNDLER_RPC_URL = ` https://bundler-dev.bsquared.network/${CHAIN_ID}`
+// export const BUNDLER_RPC_URL = ` https://bundler-dev.bsquared.network/${CHAIN_ID}`
+export const BUNDLER_RPC_URL = ` https://bundler-test.bsquared.network/${CHAIN_ID}`
 export const ENTRYPOINT_ADDRESS = "0x4271A0C0e0621504A6614d1f94A49A5aa583aCd0"
 export const KERNEL_IMPL_ADDRESS = "0x4f20B43473D97bACc081dCFbeECa8B6F9062D320"
 export const PM_BASE_URL = "https://pm-test.bsquared.network"
