@@ -12,7 +12,7 @@ export class UnisatConnector implements Connector {
   onDisconnect?: DisconnectHandler
 
   constructor(options?: ConnectorOptions) {
-    this.name = 'Unisat'
+    this.name = BtcConnectorName.Unisat
     this.onAccountsChanged = options?.onAccountsChanged
     this.onNetworkChanged = options?.onNetworkChanged
     this.onDisconnect = options?.onDisconnect
@@ -21,7 +21,7 @@ export class UnisatConnector implements Connector {
   getProvider() {
     if (typeof window === 'undefined') return
     if (typeof window.unisat === 'undefined') {
-      throw new ConnectorNotFoundError()
+      return new ConnectorNotFoundError()
     }
 
     return window.unisat
@@ -47,6 +47,7 @@ export class UnisatConnector implements Connector {
       }
 
       const accounts: string[] = await provider.requestAccounts()
+      // await provider.switchNetwork('testnet')
       const publicKey: string = await provider.getPublicKey()
       const network: Network = await provider.getNetwork()
       this.address = accounts[0]

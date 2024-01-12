@@ -11,7 +11,7 @@ export class OkxConnector implements Connector {
   onDisconnect?: DisconnectHandler
 
   constructor(options?: ConnectorOptions) {
-    this.name = 'OKX'
+    this.name = BtcConnectorName.OKX
     this.onAccountsChanged = options?.onAccountsChanged
     this.onNetworkChanged = options?.onNetworkChanged
     this.onDisconnect = options?.onDisconnect

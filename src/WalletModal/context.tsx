@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { WalletModal } from '.';
 import { WalletCollection, WalletTypes } from '../types/types';
 import { getWalletFromLocal } from '../utils/localstore';
-import { useBtc } from '../btcWallet';
+import { BtcConnectorName, useBtc } from '../btcWallet';
 
 type GlobalContextType = {
   openConnectModal: boolean;
@@ -50,12 +50,12 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean 
       return
     }
     if (w === WalletTypes.WALLET_UNISAT && !isConnected) {
-      await connect('Unisat')
+      await connect(BtcConnectorName.Unisat)
       setCurrentWallet(w)
       return
     }
     if (w === WalletTypes.WALLET_OKX_BTC && !isConnected) {
-      await connect('OKX')
+      await connect(BtcConnectorName.OKX)
       setCurrentWallet(w)
       return
     }

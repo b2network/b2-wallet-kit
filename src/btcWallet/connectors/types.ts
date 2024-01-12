@@ -1,4 +1,3 @@
-import { promises } from 'dns'
 import { BtcConnectorName, Network } from '../types'
 
 export type AccountsChangedHandler = (address: string, publicKey: string) => void

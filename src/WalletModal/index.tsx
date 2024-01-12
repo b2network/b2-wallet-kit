@@ -1,18 +1,18 @@
 import { Connector, useAccount, useConnect } from "wagmi";
-import { BtcConnectorName, useBtc } from "../btcWallet";
+import { BtcConnectorName, InstalledMap, useBtc } from "../btcWallet";
 import Modal from 'react-modal';
 import { useB2Modal } from "./context";
 import { WalletCollection, WalletTypes } from "../types/types";
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import iconMetamask from '../imgs/icon_metamask.png'
 import iconOkx from '../imgs/icon_okx.svg'
 import iconUnisat from '../imgs/icon_unisat.svg'
-import iconClose from '../imgs/icon_close.svg'
 import iconType from '../imgs/icon_type.svg'
 import iconArrow from '../imgs/icon_arrow.svg'
-
 import './styles/index.less';
 import { saveWalletToLocal } from "../utils/localstore";
+import WalletItem from "./components/WalletItem";
+import ModalHeader from "./components/ModalHeader";
 
 const BTCWallets = [
   {
@@ -29,12 +29,33 @@ const BTCWallets = [
   // },
 ]
 
+const defaultInstalledMap: Record<WalletTypes, boolean> = {
+  metamask: false,
+  unisat: false,
+  okx_btc: false,
+  okx_evm: false,
+}
+
+const SubTitle = ({ title }: { title: string }) => {
+  return (
+    <div className="title">
+      <img src={iconType} alt="icon" />
+      <div>
+        {title}
+      </div>
+    </div>
+  )
+}
+
 const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
   const { connect: connectBtc, setCurrentWallet } = useBtc()
   const { openConnectModal, hanldeCloseConnectModal } = useB2Modal()
   const { isConnected } = useAccount()
+
+  const [installedMap, setInstalledMap] = useState<InstalledMap>(defaultInstalledMap)
+
   const showEth = useMemo(() => {
     return collection === WalletCollection.ALL || collection === WalletCollection.ETH
   }, [collection])
@@ -48,6 +69,14 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
     if (wallet.toLocaleLowerCase().includes('metamask')) return iconMetamask
     return ''
   }
+
+  const getInstalled = useCallback((wallet: string) => {
+    if (wallet.toLocaleLowerCase().includes('okx')) return installedMap[WalletTypes.WALLET_OKX_EVM]
+    if (wallet.toLocaleLowerCase().includes('unisat')) return installedMap[WalletTypes.WALLET_UNISAT]
+    if (wallet.toLocaleLowerCase().includes('metamask')) return installedMap[WalletTypes.WALLET_METAMASK]
+    return false
+
+  }, [installedMap])
 
   const handleClickEthWallet = async (c: Connector) => {
     if (!isConnected) {
@@ -77,6 +106,24 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
     res && hanldeCloseConnectModal()
   }
 
+  const getInstalledWallet = () => {
+    if (typeof window === 'undefined') return;
+    const installed = {
+      ...installedMap
+    }
+    if (window.unisat) installed.unisat = true;
+    if (window.ethereum) installed.metamask = true;
+    if (window.okxwallet) {
+      installed.okx_btc = true;
+      installed.okx_evm = true
+    }
+    setInstalledMap(installed)
+  }
+
+  useEffect(() => {
+    getInstalledWallet()
+  }, [])
+
   return (
     <Modal
       isOpen={openConnectModal}
@@ -85,30 +132,21 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
       className="b2WalletModal"
       overlayClassName="overlay"
     >
-      <div className="header">
-        <div className="tip">Please connect a wallet address</div>
-        <img onClick={hanldeCloseConnectModal} src={iconClose} alt="close" />
-      </div>
+      <ModalHeader hanldeCloseConnectModal={hanldeCloseConnectModal} />
       <div className="content">
         {
           showEth && <div>
-            <div className="title">
-              <img src={iconType} alt="icon" />
-              <div>
-                Ethereum Wallet
-              </div>
-            </div>
+            <SubTitle title="Ethereum Wallet" />
             {
               showEth && connectors.map(c => {
+                const installed = getInstalled(c.name)
                 return (
-                  <div key={c.id}
-                    className="walletItem"
-                    onClick={() => {
+                  <div onClick={() => {
+                    if (installed) {
                       handleClickEthWallet(c)
-                    }}>
-                    <img className="walletLogo" src={getImageUrl(c.name)} alt="logo" />
-                    <div>{c.name}</div>
-                    <img className="arrow" src={iconArrow} alt="icon" />
+                    }
+                  }} key={c.id}>
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
                   </div>
                 )
               })
@@ -117,21 +155,18 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
         }
         {
           showBtc && <div>
-            <div className="title">
-              <img src={iconType} alt="icon" />
-              <div>
-                Bitcoin Wallet
-              </div>
-            </div>
+            <SubTitle title="Bitcoin Wallet" />
             {
               BTCWallets.map(c => {
+                const installed = getInstalled(c.key)
                 return (
                   <div key={c.key}
-                    className="walletItem"
-                    onClick={() => connectBtcWallet(c.key as BtcConnectorName)}>
-                    <img className="walletLogo" src={getImageUrl(c.key)} alt="logo" />
-                    <div>{c.name}</div>
-                    <img className="arrow" src={iconArrow} alt="icon" />
+                    onClick={() => {
+                      if (installed) {
+                        connectBtcWallet(c.key as BtcConnectorName)
+                      }
+                    }}>
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.key)} walletName={c.name} />
                   </div>
                 )
               })
@@ -139,7 +174,6 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
           </div>
         }
       </div>
-
     </Modal>
   )
 }

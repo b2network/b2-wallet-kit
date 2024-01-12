@@ -12,11 +12,11 @@ export default defineConfig({
     react(),
     dts({
       outDir: './lib',
-      include: ['./packages']
+      include: ['./src']
     })
     // typescript({
     //   target: 'es5',
-    //   rootDir: resolve('packages/'),
+    //   rootDir: resolve('src/'),
     //   declaration: true,
     //   declarationDir: resolve('lib'),
     //   exclude: resolve('node_modules/**'),
@@ -31,7 +31,7 @@ export default defineConfig({
     // 防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制
     cssTarget: 'chrome61',
     lib: {
-      entry: resolve('packages/index.ts'),
+      entry: resolve('src/index.ts'),
       name: '@b2network/b2-wallet-kit',
       fileName: 'b2-wallet-kit',
     },

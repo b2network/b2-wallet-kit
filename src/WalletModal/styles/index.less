@@ -34,22 +34,35 @@
       margin-bottom: 12px;
     }
     .walletItem {
-      position: relative;
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: space-between;
       margin-bottom: 16px;
       padding: 12px 24px;
       cursor: pointer;
       border: 1px solid #000;
       border-radius: 4px;
-      .walletLogo {
-        width: 32px;
-        height: 32px;
+      .left {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        .walletLogo {
+          width: 32px;
+          height: 32px;
+        }
       }
-      .arrow {
-        position: absolute;
-        right: 20px;
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        .install {
+          background: #000;
+          color: white;
+          border-radius: 20px;
+          cursor: pointer;
+          padding: 4px 20px;
+          opacity: 1;
+        }
       }
     }
   }

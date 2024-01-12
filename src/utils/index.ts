@@ -13,3 +13,13 @@ export const KERNEL_IMPL_ADDRESS = "0x4f20B43473D97bACc081dCFbeECa8B6F9062D320"
 export const PM_BASE_URL = "https://pm-test.bsquared.network"
 export const SW_VALIDATOR_ADDRESS = "0xc5696A835527E8aEe673107Ce00AD740a4353a61"
 export const KERNEL_FACTORY_ADDRESS = "0x188Ebf5e4353bBAb62fD92cbfD02D68C7A77c58C"
+
+const UnisatDownd = 'https://unisat.io/download'
+const MetamaskDownload = 'https://support.metamask.io/hc/en-us/articles/360015489531-Getting-started-with-MetaMask'
+const OkxDownLoad = 'https://chromewebstore.google.com/detail/%E6%AC%A7%E6%98%93-web3-%E9%92%B1%E5%8C%85/mcohilncbfahbmgdjkbpemcciiolgcge'
+export const getDownloadUrlByKey = (wallet: string) => {
+  if (wallet.toLocaleLowerCase().includes('okx')) return OkxDownLoad
+  if (wallet.toLocaleLowerCase().includes('unisat')) return UnisatDownd
+  if (wallet.toLocaleLowerCase().includes('metamask')) return MetamaskDownload
+  return ''
+}

@@ -1,4 +1,4 @@
-// packages/index.ts
+// src/index.ts
 export * from './WalletModal'
 export * from './hooks'
 export * from './btcWallet'
