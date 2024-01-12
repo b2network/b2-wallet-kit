@@ -12,7 +12,7 @@ type GlobalContextType = {
   handleOpenDisconnectModal: () => void;
   handleCloseDisconnectModal: () => void;
   handleSetWalletCollection: (w: WalletCollection) => void
-  autoConnect: ()=>void
+  autoConnect: () => void
 };
 
 const globalContextDefaultValues: GlobalContextType = {
@@ -22,14 +22,14 @@ const globalContextDefaultValues: GlobalContextType = {
   handleCloseDisconnectModal: () => { },
   handleOpenDisconnectModal: () => { },
   handleSetWalletCollection: (w: WalletCollection) => { },
-  autoConnect: () => { }
+  autoConnect: () => { },
 };
 
 const B2ModalContext = createContext(globalContextDefaultValues);
 
 export const useB2Modal = () => useContext(B2ModalContext);
 
-export const B2ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean }> = ({ children, isAutoConnect = false }) => {
   const { connect, isConnected, setCurrentWallet } = useBtc()
   const [openConnectModal, setOpenConnectModal] = useState(false);
   const hanldeCloseConnectModal = () => setOpenConnectModal(false);
@@ -60,6 +60,13 @@ export const B2ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       return
     }
   }
+
+  useEffect(() => { 
+    if (isAutoConnect) { 
+      autoConnect()
+    }
+  },[isAutoConnect])
+
   const providerValue = {
     openConnectModal,
     hanldeCloseConnectModal,

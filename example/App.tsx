@@ -36,7 +36,7 @@ function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
       <B2BtcProvider>
-        <B2ModalProvider>
+        <B2ModalProvider isAutoConnect={true}>
           <Login />
         </B2ModalProvider>
       </B2BtcProvider>

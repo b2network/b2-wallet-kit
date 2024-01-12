@@ -30,6 +30,7 @@
     "@b2network/aa-sdk": "^1.0.17",
     "@b2network/b2-wallet-connector": "^0.0.4",
     "elliptic": "^6.5.4",
+    "jsontokens": "^4.0.1",
     "react-modal": "^3.16.1",
     "sats-connect": "^1.1.2"
   },

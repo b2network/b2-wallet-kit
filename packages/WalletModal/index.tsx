@@ -47,10 +47,10 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   }
 
   const handleClickEthWallet = async (c: Connector) => {
-    console.log(c.name,'nnnname----',isConnected)
     if (!isConnected) {
       await connectAsync({ connector: c })
     }
+    console.log({walletName: c.name,isConnected})
     let name
     if (c.name.toLocaleLowerCase().includes('metamask')) {
       name = WalletTypes.WALLET_METAMASK
