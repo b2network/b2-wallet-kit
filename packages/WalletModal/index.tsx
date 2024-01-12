@@ -4,10 +4,13 @@ import Modal from 'react-modal';
 import { useB2Modal } from "./context";
 import { WalletCollection, WalletTypes } from "../types/types";
 import { useMemo } from "react";
-import logo from '../imgs/logo.svg'
 import iconMetamask from '../imgs/icon_metamask.png'
 import iconOkx from '../imgs/icon_okx.svg'
 import iconUnisat from '../imgs/icon_unisat.svg'
+import iconClose from '../imgs/icon_close.svg'
+import iconType from '../imgs/icon_type.svg'
+import iconArrow from '../imgs/icon_arrow.svg'
+
 import './styles/index.less';
 import { saveWalletToLocal } from "../utils/localstore";
 
@@ -50,7 +53,7 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
     if (!isConnected) {
       await connectAsync({ connector: c })
     }
-    console.log({walletName: c.name,isConnected})
+    console.log({ walletName: c.name, isConnected })
     let name
     if (c.name.toLocaleLowerCase().includes('metamask')) {
       name = WalletTypes.WALLET_METAMASK
@@ -82,50 +85,61 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
       className="b2WalletModal"
       overlayClassName="overlay"
     >
-      <div>
-        <img className="b2logo" src={logo} alt="logo" />
+      <div className="header">
+        <div className="tip">Please connect a wallet address</div>
+        <img onClick={hanldeCloseConnectModal} src={iconClose} alt="close" />
       </div>
-      <div className="tip">Please connect a wallet address</div>
-      {
-        showEth && <div>
-          <div className="title">
-            Ethereum Wallet
+      <div className="content">
+        {
+          showEth && <div>
+            <div className="title">
+              <img src={iconType} alt="icon" />
+              <div>
+                Ethereum Wallet
+              </div>
+            </div>
+            {
+              showEth && connectors.map(c => {
+                return (
+                  <div key={c.id}
+                    className="walletItem"
+                    onClick={() => {
+                      handleClickEthWallet(c)
+                    }}>
+                    <img className="walletLogo" src={getImageUrl(c.name)} alt="logo" />
+                    <div>{c.name}</div>
+                    <img className="arrow" src={iconArrow} alt="icon" />
+                  </div>
+                )
+              })
+            }
           </div>
-          {
-            showEth && connectors.map(c => {
-              return (
-                <div key={c.id}
-                  className="walletItem"
-                  onClick={() => {
-                    handleClickEthWallet(c)
-                  }}>
-                  <img src={getImageUrl(c.name)} alt="logo" />
-                  <div>{c.name}</div>
-                </div>
-              )
-            })
-          }
-        </div>
-      }
-      {
-        showBtc && <div>
-          <div className="title">
-            Bitcoin Wallet
+        }
+        {
+          showBtc && <div>
+            <div className="title">
+              <img src={iconType} alt="icon" />
+              <div>
+                Bitcoin Wallet
+              </div>
+            </div>
+            {
+              BTCWallets.map(c => {
+                return (
+                  <div key={c.key}
+                    className="walletItem"
+                    onClick={() => connectBtcWallet(c.key as BtcConnectorName)}>
+                    <img className="walletLogo" src={getImageUrl(c.key)} alt="logo" />
+                    <div>{c.name}</div>
+                    <img className="arrow" src={iconArrow} alt="icon" />
+                  </div>
+                )
+              })
+            }
           </div>
-          {
-            BTCWallets.map(c => {
-              return (
-                <div key={c.key}
-                  className="walletItem"
-                  onClick={() => connectBtcWallet(c.key as BtcConnectorName)}>
-                  <img src={getImageUrl(c.key)} alt="logo" />
-                  <div>{c.name}</div>
-                </div>
-              )
-            })
-          }
-        </div>
-      }
+        }
+      </div>
+
     </Modal>
   )
 }

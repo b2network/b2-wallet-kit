@@ -6,7 +6,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../packages/btcWallet';
-import Login from './Login';
+import Login from './Example';
 
 const { chains, publicClient } = configureChains(
   //@ts-ignore

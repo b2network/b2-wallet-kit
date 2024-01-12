@@ -9,14 +9,13 @@ import { WalletCollection, WalletTypes } from "../packages/types/types"
 import { useWalletClient } from "wagmi"
 
 
-const Login = () => {
+const Example = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
   const { currentWallet, connector,connectorName,network } = useBtc()
   const { data } = useWalletClient();
   const signer = useCaSigner({ signerType: walletType, btcConnector: connector, walletClient: data })
   console.log({ signer, walletType, data })
-  // const { autoConnect } = useB2Modal()
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
   const { disconnect } = useB2Disconnect()
@@ -25,12 +24,11 @@ const Login = () => {
     const s = await getEthCaSigner(WalletTypes.WALLET_METAMASK)
     const acc = await s?.getAddress()
   }
-
   const getBtcWalletSigner = async () => {
     const s = await getBtcSigner('Unisat')
     s?.signMessage('hello').then(console.log)
   }
-  const init = async () => {
+  const signHello = async () => {
     const res = await signer?.signMessage('hello')
     console.log({ res, connectorName })
   }
@@ -43,7 +41,7 @@ const Login = () => {
         Login1
       </div>
       <div onClick={() => { 
-        init()
+        signHello()
       }}>Sign ({network})</div>
       <div onClick={getEvmWalletSigner}>get Eth Signer</div>
 
@@ -68,4 +66,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Example

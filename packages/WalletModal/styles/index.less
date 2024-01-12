@@ -6,37 +6,54 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
-  min-width: 360px;
+  min-width: 508px;
   min-height: 200px;
-  border-radius: 8px;
+  border-radius: 10px;
   color: black;
-  .b2logo {
-    width: 112px;
-  }
-  .tip {
-    margin-top: 30px;
-    margin-bottom: 16px;
-    font-size: 16px;
-    color: rgba(0,0,0,0.5);
-  }
-  .title {
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  .walletItem {
+  .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding-left: 20px;
-    cursor: pointer;
-    img {
-      width: 32px;
-      height: 32px;
+    padding: 18px 24px;
+    background: #FFF8EE;
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+    text-transform: capitalize;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  .content {
+    padding: 24px;
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .walletItem {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 12px 24px;
+      cursor: pointer;
+      border: 1px solid #000;
+      border-radius: 4px;
+      .walletLogo {
+        width: 32px;
+        height: 32px;
+      }
+      .arrow {
+        position: absolute;
+        right: 20px;
+      }
     }
   }
+
 }
 
 .overlay {
