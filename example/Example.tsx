@@ -1,11 +1,11 @@
 import { useEffect } from "react"
-import { useB2Modal } from "../packages"
-import { useBtc } from "../packages/btcWallet"
-import { useB2Disconnect, useCaSigner } from "../packages/hooks"
-import { useBtcCaSigner } from "../packages/hooks/useBtcCaSigner"
-import { useCaAccount } from "../packages/hooks/useCaAccount"
-import { useEthCaSigner } from "../packages/hooks/useEthCaSigner"
-import { WalletCollection, WalletTypes } from "../packages/types/types"
+import { useB2Modal } from "../src"
+import { BtcConnectorName, useBtc } from "../src/btcWallet"
+import { useB2Disconnect, useCaSigner } from "../src/hooks"
+import { useBtcCaSigner } from "../src/hooks/useBtcCaSigner"
+import { useCaAccount } from "../src/hooks/useCaAccount"
+import { useEthCaSigner } from "../src/hooks/useEthCaSigner"
+import { WalletCollection, WalletTypes } from "../src/types/types"
 import { useWalletClient } from "wagmi"
 
 
@@ -25,7 +25,7 @@ const Example = () => {
     const acc = await s?.getAddress()
   }
   const getBtcWalletSigner = async () => {
-    const s = await getBtcSigner('Unisat')
+    const s = await getBtcSigner(BtcConnectorName.Unisat)
     s?.signMessage('hello').then(console.log)
   }
   const signHello = async () => {
