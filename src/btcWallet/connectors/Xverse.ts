@@ -16,7 +16,7 @@ export class XverseConnector implements Connector {
   onDisconnect?: DisconnectHandler
 
   constructor(options?: ConnectorOptions) {
-    this.name = 'Xverse'
+    this.name = BtcConnectorName.Xverse
     this.onAccountsChanged = options?.onAccountsChanged
     this.onNetworkChanged = options?.onNetworkChanged
     this.onDisconnect = options?.onDisconnect
