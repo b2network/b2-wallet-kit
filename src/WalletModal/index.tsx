@@ -8,7 +8,6 @@ import iconMetamask from '../imgs/icon_metamask.png'
 import iconOkx from '../imgs/icon_okx.svg'
 import iconUnisat from '../imgs/icon_unisat.svg'
 import iconType from '../imgs/icon_type.svg'
-import iconArrow from '../imgs/icon_arrow.svg'
 import './styles/index.less';
 import { saveWalletToLocal } from "../utils/localstore";
 import WalletItem from "./components/WalletItem";
