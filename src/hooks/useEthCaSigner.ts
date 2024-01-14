@@ -1,6 +1,4 @@
 import { convertBTCConnectorToAccountSigner, convertWalletClientToAccountSigner } from "../utils/signerAdapters"
-import {  useWalletClient } from "wagmi"
-import { Connector } from "../btcWallet/connectors/types"
 import { WalletTypes } from "../types/types"
 import { b2test } from "@b2network/b2-wallet-connector"
 import { Address, createWalletClient, custom } from "viem"

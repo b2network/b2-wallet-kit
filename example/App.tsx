@@ -1,15 +1,15 @@
 import React from 'react';
 import { B2ModalProvider } from '../src';
 import { WagmiConfig, WindowProvider, configureChains, createConfig } from 'wagmi';
-import { b2test } from '@b2network/b2-wallet-connector';
+// import { b2test } from '@b2network/b2-wallet-connector';
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../src/btcWallet';
 import Login from './Example';
+import { b2test } from '../src/utils/chain';
 
 const { chains, publicClient } = configureChains(
-  //@ts-ignore
   [b2test],
   [publicProvider()]
 );
@@ -21,10 +21,10 @@ const wagmiConfig = createConfig({
       chains,
       options: {
         name: 'OKX Wallet',
-        //@ts-ignore
         getProvider: () => {
-          //@ts-ignore
-          return typeof window !== undefined && window.okxwallet as WindowProvider
+          if (typeof window !== "undefined") { 
+            return window.okxwallet as WindowProvider
+          }
         }
       }
     })

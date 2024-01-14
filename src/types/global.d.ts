@@ -1,12 +1,13 @@
 type EthereumProvider = { request(...args: any): Promise<any> }
 
-
 interface Window {
-  b2?: EthereumProvider
-  ethereum?: EthereumProvider
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  okxwallet?: EthereumProvider & { bitcoin: any,bitcoinTestnet:any }
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  ethereum?: WindowProvider
+  okxwallet?: WindowProvider & { bitcoin: any, bitcoinTestnet: any }
   unisat?: any
   XverseProviders: any
+  BitcoinProvider: BitcoinProvider
+}
+
+interface ImportMeta {
+  env: Record<string, string | undefined>
 }
