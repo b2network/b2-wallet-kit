@@ -1,4 +1,4 @@
-import { convertBTCConnectorToAccountSigner, convertWalletClientToAccountSigner } from "../utils/signerAdapters"
+import { convertWalletClientToAccountSigner } from "../utils/signerAdapters"
 import { WalletTypes } from "../types/types"
 import { Address, createWalletClient, custom } from "viem"
 import { b2test } from "../utils/chain"

@@ -4,7 +4,6 @@ export enum BtcConnectorName {
   Unisat = 'Unisat',
   OKX = 'OKX',
   Xverse = 'Xverse'
-  //  'Unisat' | 'OKX' | 'Xverse'
 }
 export type Network = 'livenet' | 'testnet'
 
