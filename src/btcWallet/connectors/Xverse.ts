@@ -25,10 +25,10 @@ export class XverseConnector implements Connector {
   getProvider() {
     if (typeof window === 'undefined') return
     if (typeof window.XverseProviders === 'undefined') {
-      throw new ConnectorNotFoundError()
+      return new ConnectorNotFoundError()
     }
 
-    return window.XverseProviders
+    return window.BitcoinProvider
   }
 
   async connect() {
