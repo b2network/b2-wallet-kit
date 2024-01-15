@@ -6,7 +6,7 @@ const ModalHeader = ({
 }: { hanldeCloseConnectModal:()=>void}) => {
   return (
     <div className="header">
-      <div className="tip">Please connect a wallet address</div>
+      <div className="tip">Please connect a wallet</div>
       <img onClick={hanldeCloseConnectModal} src={iconClose} alt="close" />
     </div>
   )
