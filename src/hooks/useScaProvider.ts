@@ -1,8 +1,8 @@
 import getValidatorProvider from "../utils/getValidatorProvider"
-import { b2test } from "@b2network/b2-wallet-connector"
 import { Address, padHex } from "viem"
 import { SimpleWeightedECDSAProvider, SmartAccountSigner } from "@b2network/aa-sdk"
 import { useEffect, useState } from "react"
+import { b2test } from "../utils/chain"
 
 const useScaProvider = (ethAddress?: Address, signer?: SmartAccountSigner) => {
   const [caProvider, setCaProvider] = useState<SimpleWeightedECDSAProvider>()

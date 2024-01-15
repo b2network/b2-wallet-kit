@@ -6,7 +6,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../src/btcWallet';
-import Login from './Example';
+import Example from './Example';
 import { b2test } from '../src/utils/chain';
 
 const { chains, publicClient } = configureChains(
@@ -37,7 +37,7 @@ function App() {
     <WagmiConfig config={wagmiConfig}>
       <B2BtcProvider>
         <B2ModalProvider isAutoConnect={true}>
-          <Login />
+          <Example />
         </B2ModalProvider>
       </B2BtcProvider>
     </WagmiConfig>

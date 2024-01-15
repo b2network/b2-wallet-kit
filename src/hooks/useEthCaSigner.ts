@@ -1,7 +1,7 @@
 import { convertBTCConnectorToAccountSigner, convertWalletClientToAccountSigner } from "../utils/signerAdapters"
 import { WalletTypes } from "../types/types"
-import { b2test } from "@b2network/b2-wallet-connector"
 import { Address, createWalletClient, custom } from "viem"
+import { b2test } from "../utils/chain"
 
 
 const useEthCaSigner = () => {
@@ -15,7 +15,6 @@ const useEthCaSigner = () => {
   const getEthCaSigner = async (wallet: WalletTypes) => {
     const accounts = await connect(wallet)
     const client = createWalletClient({
-      //@ts-ignore
       chain: b2test,
       account: accounts[0],
       transport: custom(injected)
