@@ -120,8 +120,10 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   }
 
   useEffect(() => {
-    getInstalledWallet()
-  }, [])
+    if (openConnectModal) {
+      getInstalledWallet()
+    }
+  }, [openConnectModal])
 
   return (
     <Modal
