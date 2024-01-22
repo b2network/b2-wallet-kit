@@ -8,7 +8,6 @@ import {
   ENTRYPOINT_ADDRESS,
   KERNEL_FACTORY_ADDRESS,
   KERNEL_IMPL_ADDRESS,
-  PM_BASE_URL,
   SW_VALIDATOR_ADDRESS,
 } from './index'
 
@@ -56,10 +55,10 @@ const getValidatorProvider = async (
         entryPointAddress: ENTRYPOINT_ADDRESS,
         validatorAddress: SW_VALIDATOR_ADDRESS,
       },
-      paymasterConfig: {
-        policy: 'VERIFYING_PAYMASTER',
-        baseURL: PM_BASE_URL,
-      },
+      // paymasterConfig: {
+      //   policy: 'VERIFYING_PAYMASTER',
+      //   baseURL: PM_BASE_URL,
+      // },
     },
   })
 }
