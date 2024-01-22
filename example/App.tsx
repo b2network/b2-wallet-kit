@@ -7,7 +7,7 @@ import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../src/btcWallet';
 import Example from './Example';
-import { b2test } from '../src/utils/chain';
+import { b2test,b2TestHaven } from '../src/utils/chain';
 
 const { chains, publicClient } = configureChains(
   [b2test],
