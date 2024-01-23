@@ -2,7 +2,7 @@ import getValidatorProvider from "../utils/getValidatorProvider"
 import { Address, padHex } from "viem"
 import { SimpleWeightedECDSAProvider, SmartAccountSigner } from "@b2network/aa-sdk"
 import { useEffect, useState } from "react"
-import { b2test } from "../utils/chain"
+import { b2TestHaven } from "../utils/chain"
 
 const useScaProvider = (ethAddress?: Address, signer?: SmartAccountSigner) => {
   const [caProvider, setCaProvider] = useState<SimpleWeightedECDSAProvider>()
@@ -10,7 +10,7 @@ const useScaProvider = (ethAddress?: Address, signer?: SmartAccountSigner) => {
   useEffect(() => {
     const getProvider = async () => {
       if (signer && ethAddress) {
-        const provider = await getValidatorProvider(b2test, signer, {
+        const provider = await getValidatorProvider(b2TestHaven, signer, {
           guardians: [ethAddress],
           ids: [padHex('0x', { size: 32 })],
           weights: [1],
