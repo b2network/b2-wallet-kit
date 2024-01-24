@@ -8,7 +8,7 @@ import { useEthCaSigner } from "../src/hooks/useEthCaSigner"
 import { WalletCollection, WalletTypes } from "../src/types/types"
 import { useWalletClient } from "wagmi"
 import Transfer from "./Transfer"
-import useBtcScaAddress from "../src/hooks/useBtcScaAddress"
+import { useBtcScaAddress } from "../src/hooks/useBtcScaAddress"
 
 
 const Example = () => {
