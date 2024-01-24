@@ -51,9 +51,8 @@ export class UnisatConnector implements Connector {
           this.onNetworkChanged && this.onNetworkChanged(network)
         })
       }
-
-      const accounts: string[] = await provider.requestAccounts()
       await provider.switchNetwork('testnet')
+      const accounts: string[] = await provider.requestAccounts()
       const publicKey: string = await provider.getPublicKey()
       const network: Network = await provider.getNetwork()
       this.address = accounts[0]
