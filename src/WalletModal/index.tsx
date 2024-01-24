@@ -165,7 +165,7 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
                         connectBtcWallet(c.name)
                       }
                     }}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={`${c.name} Wallet`} />
                   </div>
                 )
               })
