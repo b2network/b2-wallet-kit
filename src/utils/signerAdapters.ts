@@ -52,7 +52,7 @@ export const convertBTCConnectorToAccountSigner = (
   return {
     async getAddress() {
       if (connector.address) {
-        return connector.address as any
+        return connector.address as any  
       }
       return connector.connect().then(({ address }) => address as any)
     },

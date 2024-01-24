@@ -8,6 +8,9 @@ import { InjectedConnector } from "@wagmi/core/connectors/injected";
 import { B2BtcProvider } from '../src/btcWallet';
 import Example from './Example';
 import { b2TestHaven } from '../src/utils/chain';
+import { UnisatConnector } from '../src/btcWallet/connectors/Unisat';
+import { XverseConnector } from '../src/btcWallet/connectors/Xverse';
+import { OkxConnector } from '../src/btcWallet/connectors/Okx';
 
 const { chains, publicClient } = configureChains(
   [b2TestHaven],
@@ -35,7 +38,7 @@ const wagmiConfig = createConfig({
 function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <B2BtcProvider>
+      <B2BtcProvider connectors={[new OkxConnector(),new UnisatConnector()]}>
         <B2ModalProvider isAutoConnect={true}>
           <Example />
         </B2ModalProvider>

@@ -18,6 +18,12 @@ export class UnisatConnector implements Connector {
     this.onDisconnect = options?.onDisconnect
   }
 
+  initListeners(options:ConnectorOptions){ 
+    this.onAccountsChanged = options?.onAccountsChanged
+    this.onNetworkChanged = options?.onNetworkChanged
+    this.onDisconnect = options?.onDisconnect
+  }
+
   getProvider() {
     if (typeof window === 'undefined') return
     if (typeof window.unisat === 'undefined') {

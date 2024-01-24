@@ -16,7 +16,11 @@ export class OkxConnector implements Connector {
     this.onNetworkChanged = options?.onNetworkChanged
     this.onDisconnect = options?.onDisconnect
   }
-
+  initListeners(options:ConnectorOptions){ 
+    this.onAccountsChanged = options?.onAccountsChanged
+    this.onNetworkChanged = options?.onNetworkChanged
+    this.onDisconnect = options?.onDisconnect
+  }
   getProvider() {
     if (typeof window === 'undefined') return
     if (typeof window?.okxwallet?.bitcoin === 'undefined') {
@@ -34,6 +38,7 @@ export class OkxConnector implements Connector {
         provider.on(
           'connect',
           async ({ address, compressedPublicKey }: { address: string; compressedPublicKey: string }) => {
+            console.log('on okx connnect', { address, compressedPublicKey })
             if (address && compressedPublicKey) {
               this.onAccountsChanged && this.onAccountsChanged(address, compressedPublicKey)
             }

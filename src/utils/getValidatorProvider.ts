@@ -2,7 +2,7 @@ import {
   SimpleWeightedECDSAProvider,
   SmartAccountSigner,
 } from '@b2network/aa-sdk'
-import { Address, Chain, Hex, hexToBigInt, keccak256 } from 'viem'
+import { Address, Hex, hexToBigInt, keccak256 } from 'viem'
 import {
   BUNDLER_RPC_URL,
   ENTRYPOINT_ADDRESS,
@@ -33,7 +33,7 @@ const getValidatorProvider = async (
     ids,
     weights,
     threshold,
-    usePaymaster:true,
+    usePaymaster: true,
     opts: {
       providerConfig: {
         chain,

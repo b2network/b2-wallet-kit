@@ -1,24 +1,27 @@
 import { useEffect } from "react"
 import { useB2Modal } from "../src"
 import { BtcConnectorName, useBtc } from "../src/btcWallet"
-import { useB2Disconnect, useCaSigner } from "../src/hooks"
+import { useB2Disconnect, useCaSigner, useScaProvider } from "../src/hooks"
 import { useBtcCaSigner } from "../src/hooks/useBtcCaSigner"
 import { useCaAccount } from "../src/hooks/useCaAccount"
 import { useEthCaSigner } from "../src/hooks/useEthCaSigner"
 import { WalletCollection, WalletTypes } from "../src/types/types"
 import { useWalletClient } from "wagmi"
+import Transfer from "./Transfer"
+import useBtcScaAddress from "../src/hooks/useBtcScaAddress"
 
 
 const Example = () => {
   const { handleOpenConnectModal, handleSetWalletCollection } = useB2Modal()
   const { address, isConnected, walletType } = useCaAccount()
-  const { currentWallet, connector,connectorName,network } = useBtc()
+  const { currentWallet, connector, connectorName, network, ethAddress } = useBtc()
   const { data } = useWalletClient();
   const signer = useCaSigner({ signerType: walletType, btcConnector: connector, walletClient: data })
-  console.log({ signer, walletType, data })
   const { getBtcSigner } = useBtcCaSigner()
   const { getEthCaSigner } = useEthCaSigner()
+  const { address: btcScaAddress } = useBtcScaAddress(address)
   const { disconnect } = useB2Disconnect()
+  const provider = useScaProvider(ethAddress, signer)
 
   const getEvmWalletSigner = async () => {
     const s = await getEthCaSigner(WalletTypes.WALLET_METAMASK)
@@ -26,6 +29,7 @@ const Example = () => {
   }
   const getBtcWalletSigner = async () => {
     const s = await getBtcSigner(BtcConnectorName.Unisat)
+    console.log(s.getAddress().then(console.log), '1111')
     s?.signMessage('hello').then(console.log)
   }
   const signHello = async () => {
@@ -40,7 +44,7 @@ const Example = () => {
       }}>
         Login1
       </div>
-      <div onClick={() => { 
+      <div onClick={() => {
         signHello()
       }}>Sign ({network})</div>
       <div onClick={getEvmWalletSigner}>get Eth Signer</div>
@@ -57,12 +61,15 @@ const Example = () => {
         handleSetWalletCollection(WalletCollection.ALL)
       }}>all</div>
       <div>{address || ''}</div>
-      <div>{isConnected.toString()}</div>
+      {
+        connectorName && <div>sca address: {btcScaAddress}</div>
+      }
       <div onClick={() => {
         disconnect()
       }}>Disconnect</div>
 
-      
+
+      <Transfer />
 
 
     </div>

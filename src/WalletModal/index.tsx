@@ -13,20 +13,20 @@ import { saveWalletToLocal } from "../utils/localstore";
 import WalletItem from "./components/WalletItem";
 import ModalHeader from "./components/ModalHeader";
 
-const BTCWallets = [
-  {
-    key: 'Unisat',
-    name: 'UniSat Wallet'
-  },
-  {
-    key: 'OKX',
-    name: 'OKX Wallet'
-  },
-  // {
-  //   key: 'Xverse',
-  //   logo: '/assets/xverse.svg'
-  // },
-]
+// const BTCWallets = [
+//   {
+//     key: 'Unisat',
+//     name: 'UniSat Wallet'
+//   },
+//   {
+//     key: 'OKX',
+//     name: 'OKX Wallet'
+//   },
+//   // {
+//   //   key: 'Xverse',
+//   //   logo: '/assets/xverse.svg'
+//   // },
+// ]
 
 const defaultInstalledMap: Record<WalletTypes, boolean> = {
   metamask: false,
@@ -49,10 +49,9 @@ const SubTitle = ({ title }: { title: string }) => {
 const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
     useConnect();
-  const { connect: connectBtc, setCurrentWallet } = useBtc()
+  const { connect: connectBtc, setCurrentWallet, connectors: btcConnectors } = useBtc()
   const { openConnectModal, hanldeCloseConnectModal } = useB2Modal()
   const { isConnected } = useAccount()
-
   const [installedMap, setInstalledMap] = useState<InstalledMap>(defaultInstalledMap)
 
   const showEth = useMemo(() => {
@@ -80,7 +79,6 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   const handleClickEthWallet = async (c: Connector) => {
     if (!isConnected) {
       const res = await connectAsync({ connector: c })
-      console.log(res, 'connect---')
     }
     let name
     if (c.name.toLocaleLowerCase().includes('metamask')) {
@@ -158,16 +156,16 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
           showBtc && <div>
             <SubTitle title="Bitcoin Wallet" />
             {
-              BTCWallets.map(c => {
-                const installed = getInstalled(c.key)
+              btcConnectors.map(c => {
+                const installed = getInstalled(c.name)
                 return (
-                  <div key={c.key}
+                  <div key={c.name}
                     onClick={() => {
                       if (installed) {
-                        connectBtcWallet(c.key as BtcConnectorName)
+                        connectBtcWallet(c.name)
                       }
                     }}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.key)} walletName={c.name} />
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
                   </div>
                 )
               })

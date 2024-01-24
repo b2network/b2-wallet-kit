@@ -20,6 +20,7 @@ export interface Connector {
   name: BtcConnectorName
   address?: string,
   publicKey?: string,
+  initListeners: (options:ConnectorOptions)=>void
   getProvider(): any
   connect(options?: ConnectorOptions): Promise<Connection>
   disconnect(): void

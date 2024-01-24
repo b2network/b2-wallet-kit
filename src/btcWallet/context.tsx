@@ -32,10 +32,11 @@ interface State {
   publicKey?: string
   connectorName?: BtcConnectorName
   network?: Network
-  currentWallet?: WalletTypes
+  currentWallet?: WalletTypes,
+  connectors: Connector[]
 }
 
-type B2BtcProviderProps = { children: React.ReactNode }
+type B2BtcProviderProps = { children: React.ReactNode, connectors: Connector[] }
 
 const BtcContext = createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined)
 
@@ -59,6 +60,7 @@ const btcReducer = (state: State, action: Action): State => {
 
     case 'connected': {
       return {
+        ...state,
         isConnecting: false,
         isConnected: true,
         connectorName: action.connectorName,
@@ -70,6 +72,7 @@ const btcReducer = (state: State, action: Action): State => {
 
     case 'disconnected': {
       return {
+        ...state,
         isConnecting: false,
         isConnected: false,
         connectorName: undefined,
@@ -101,8 +104,9 @@ const btcReducer = (state: State, action: Action): State => {
   }
 }
 
-export const B2BtcProvider = ({ children }: B2BtcProviderProps) => {
+export const B2BtcProvider = ({ children, connectors }: B2BtcProviderProps) => {
   const [state, dispatch] = useReducer(btcReducer, {
+    connectors,
     isConnecting: false,
     isConnected: false,
     connectorName: undefined,
@@ -110,6 +114,30 @@ export const B2BtcProvider = ({ children }: B2BtcProviderProps) => {
     publicKey: undefined,
     network: undefined,
   })
+  const defultListeners = {
+    onAccountsChanged: (address: string, publicKey: string) => {
+      dispatch({
+        type: 'account changed',
+        address,
+        publicKey,
+      })
+    },
+    onNetworkChanged: (network: Network) => {
+      dispatch({
+        type: 'network changed',
+        network,
+      })
+    },
+    onDisconnect: () => {
+      dispatch({ type: 'disconnected' })
+    },
+  }
+  // initListeners
+
+  useEffect(() => {
+    connectors.forEach((conector) => conector.initListeners(defultListeners))
+  }, [connectors])
+
 
   return <BtcContext.Provider value={{ state, dispatch }}>{children}</BtcContext.Provider>
 }
@@ -128,47 +156,29 @@ export const useBtc = () => {
   const {
     publicKey,
     connectorName,
-    address
+    address,
+    connectors
   } = ctx.state
-  const defaultConnectorOptions: ConnectorOptions = useMemo(
-    () => ({
-      onAccountsChanged: (address, publicKey) => {
-        ctx.dispatch({
-          type: 'account changed',
-          address,
-          publicKey,
-        })
-      },
-      onNetworkChanged: (network) => {
-        ctx.dispatch({
-          type: 'network changed',
-          network,
-        })
-      },
-      onDisconnect: () => {
-        ctx.dispatch({ type: 'disconnected' })
-      },
-    }),
-    [ctx],
-  )
 
   const ConnectorMap: Record<BtcConnectorName, Connector> = useMemo(
-    () => ({
-      Unisat: new UnisatConnector(defaultConnectorOptions),
-      OKX: new OkxConnector(defaultConnectorOptions),
-      Xverse: new XverseConnector(defaultConnectorOptions)
-    }),
-    [defaultConnectorOptions],
+    () => {
+      let obj: any = {};
+      connectors.forEach(v => obj[v.name] = v)
+      return obj
+    },
+    [connectors],
   )
-
+    
   const connector = useMemo(() => {
     if (ctx.state.connectorName) {
-      const c = ConnectorMap[ctx.state.connectorName]
-      c.address = address;
-      c.publicKey = publicKey
+      const c = connectors.find(v => v.name === connectorName)
+      if (c) {
+        c.address = address;
+        c.publicKey = publicKey
+      }
       return c
     }
-  }, [ConnectorMap, connectorName,address])
+  }, [ConnectorMap, connectorName, address])
 
   const disconnect = useCallback(() => {
     ctx.dispatch({ type: 'disconnected' })
@@ -239,4 +249,18 @@ export const useBtc = () => {
   }, [publicKey])
 
   return { ...ctx.state, ethAddress, connect, disconnect, connector, signMessage, provider, sendBitcoin, setCurrentWallet, ConnectorMap }
+}
+
+export const useCurrentWallet = () => {
+  const ctx = useBtcContext()
+  const setCurrentWallet = useCallback((w: WalletTypes | undefined) => {
+    ctx.dispatch({
+      type: 'walletType changed',
+      currentWallet: w
+    })
+  }, [ctx])
+  return {
+    currentWallet: ctx.state.currentWallet,
+    setCurrentWallet
+  }
 }
