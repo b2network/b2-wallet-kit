@@ -1,8 +1,8 @@
 import { Address, useBalance, useSendTransaction, useWalletClient } from "wagmi"
 import { useCaAccount } from "../src";
 import { isAddress, parseEther } from "viem";
-import useBtcScaAddress from "../src/hooks/useBtcScaAddress";
 import { useMemo } from "react";
+import { useBtcScaAddress } from "../src/hooks/useBtcScaAddress";
 
 const Transfer = () => {
   const { address, walletType } = useCaAccount()
