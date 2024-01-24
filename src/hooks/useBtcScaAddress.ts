@@ -23,4 +23,6 @@ const useBtcScaAddress = (address?: string) => {
     address: sca
   }
 }
-export default useBtcScaAddress;
+export default {
+  useBtcScaAddress
+}
