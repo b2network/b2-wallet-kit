@@ -1,12 +1,9 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useReducer } from 'react'
 import { BtcConnectorName, Network } from './types'
 import { Connector, ConnectorOptions } from './connectors/types'
-import { UnisatConnector } from './connectors/Unisat'
-import { OkxConnector } from './connectors/Okx'
 import { ec as EC } from 'elliptic';
 import { keccak256 } from "viem";
 import { getAddress } from "viem/utils";
-import { XverseConnector } from './connectors/Xverse'
 import { WalletTypes } from '../types/types'
 
 type Action =

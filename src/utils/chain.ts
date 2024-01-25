@@ -26,8 +26,8 @@ export const b2test = defineChain<Chain, ChainFormatters | undefined>({
 })
 export const b2TestHaven = defineChain<Chain, ChainFormatters | undefined>({
   id: 1102,
-  name: 'b2-test-haven',
-  network: 'b2-test-haven',
+  name: 'B2-Haven',
+  network: 'B2-Haven',
   nativeCurrency: {
     decimals: 18,
     name: 'Bitcoin',
@@ -35,16 +35,16 @@ export const b2TestHaven = defineChain<Chain, ChainFormatters | undefined>({
   },
   blockExplorers: {
     default: {
-      name: 'bsquared testnet',
-      url: 'https://testnet-role.bsquared.network/'
+      name: 'B2-Haven',
+      url: 'https://haven-explorer.bsquared.network'
     }
   },
   rpcUrls: {
     default: {
-      http: ['https://roles-rpc.bsquared.network/'],
+      http: ['https://haven-rpc.bsquared.network/'],
     },
     public: {
-      http: ['https://roles-rpc.bsquared.network/'],
+      http: ['https://haven-rpc.bsquared.network'],
     },
   },
 })
