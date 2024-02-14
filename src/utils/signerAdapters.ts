@@ -1,4 +1,4 @@
-import { Connector as BTCConnector  } from '../btcWallet/connectors/types'
+import { Connector as BTCConnector } from '../btcWallet/connectors/types'
 import { SignTypedDataParams, SmartAccountSigner } from '@b2network/aa-sdk'
 import { Hex, WalletClient, concatHex, keccak256, zeroAddress } from 'viem'
 import ecPubKeyToETHAddress from './ecPubKeyToETHAddress'
@@ -27,8 +27,8 @@ export const convertWalletClientToAccountSigner = (
           typeof message === 'string'
             ? message
             : {
-                raw: message,
-              },
+              raw: message,
+            },
       })
       return concatHex(['0x00', sig, ethAddress])
     },
@@ -52,7 +52,7 @@ export const convertBTCConnectorToAccountSigner = (
   return {
     async getAddress() {
       if (connector.address) {
-        return connector.address as any  
+        return connector.address as any
       }
       return connector.connect().then(({ address }) => address as any)
     },
@@ -69,13 +69,11 @@ export const convertBTCConnectorToAccountSigner = (
       const vrsSigBuff = await connector
         .signMessage(textMsg)
         .then((encoded) => Buffer.from(encoded, 'base64'))
-      const walletType = connector.name;
+      const v = vrsSigBuff[0] - 0x1f < 0 ? vrsSigBuff[0] - 0x1b : vrsSigBuff[0] - 0x1f
       const rsvSigBuff = Buffer.concat([
         Buffer.from(vrsSigBuff.subarray(1)),
         Buffer.from([
-          walletType === 'Unisat'
-            ? vrsSigBuff[0]
-            : vrsSigBuff[0] - 0x1f,
+          v
         ]),
       ])
       // const rsvSigBuff = Buffer.concat([
