@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 function resolve(str: string) {
   return path.resolve(__dirname, str);
 }
@@ -13,7 +14,8 @@ export default defineConfig({
     dts({
       outDir: './lib',
       include: ['./src']
-    })
+    }),
+    nodePolyfills()
     // typescript({
     //   target: 'es5',
     //   rootDir: resolve('src/'),
@@ -35,12 +37,12 @@ export default defineConfig({
       fileName: 'b2-wallet-kit',
     },
     rollupOptions: {
-      external: ['react', 'react-dom','viem','wagmi'],
+      external: ['react', 'react-dom', 'viem', 'wagmi'],
       output: {
         globals: {
           react: 'react',
           viem: 'viem',
-          wagmi:'wagmi',
+          wagmi: 'wagmi',
           'react-dom': 'react-dom',
         },
       },

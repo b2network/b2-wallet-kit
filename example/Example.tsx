@@ -34,7 +34,7 @@ const Example = () => {
   }
   const signHello = async () => {
     const res = await signer?.signMessage('hello')
-    console.log({ res, connectorName })
+    console.log({ sig: res, currentWallet })
   }
 
   return (
