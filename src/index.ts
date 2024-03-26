@@ -1,5 +1,5 @@
-export * from './WalletModal'
+export * from './context';
+
+export * from './utils/chains'
+export * from './utils/signedMsgAdapter'
 export * from './hooks'
-export * from './btcWallet'
-export * from './types/types'
-export * from './utils/chain'

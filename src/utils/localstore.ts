@@ -15,5 +15,5 @@ export const getWalletFromLocal = () => {
 }
 export const clearWalletFromLocal = () => {
   localStorage.removeItem(KEY_WALLET)
-  return 
+  return
 }

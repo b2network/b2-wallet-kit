@@ -1,32 +1,19 @@
-import { Connector, useAccount, useConnect } from "wagmi";
-import { BtcConnectorName, InstalledMap, useBtc } from "../btcWallet";
-import Modal from 'react-modal';
-import { useB2Modal } from "./context";
-import { WalletCollection, WalletTypes } from "../types/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import iconMetamask from '../imgs/icon_metamask.png'
-import iconOkx from '../imgs/icon_okx.svg'
-import iconUnisat from '../imgs/icon_unisat.svg'
-import iconType from '../imgs/icon_type.svg'
-import './styles/index.less';
-import { saveWalletToLocal } from "../utils/localstore";
-import WalletItem from "./components/WalletItem";
-import ModalHeader from "./components/ModalHeader";
+import { Connector, useAccount, useConnect as useEthConnect } from "wagmi";
 
-// const BTCWallets = [
-//   {
-//     key: 'Unisat',
-//     name: 'UniSat Wallet'
-//   },
-//   {
-//     key: 'OKX',
-//     name: 'OKX Wallet'
-//   },
-//   // {
-//   //   key: 'Xverse',
-//   //   logo: '/assets/xverse.svg'
-//   // },
-// ]
+import Modal from 'react-modal';
+import { useB2Modal, useCurrentWallet } from "../../context";
+import { WalletCollection, WalletTypes, InstalledMap } from "../../types/types";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import iconMetamask from '../../imgs/icon_metamask.png'
+import iconOkx from '../../imgs/icon_okx.svg'
+import iconUnisat from '../../imgs/icon_unisat.svg'
+import iconType from '../../imgs/icon_type.svg'
+import { saveWalletToLocal } from "../../utils";
+import WalletItem from "./WalletItem";
+import ModalHeader from "./ModalHeader";
+import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
+import styles from './index.module.scss';
+
 
 const defaultInstalledMap: Record<WalletTypes, boolean> = {
   metamask: false,
@@ -37,7 +24,7 @@ const defaultInstalledMap: Record<WalletTypes, boolean> = {
 
 const SubTitle = ({ title }: { title: string }) => {
   return (
-    <div className="title">
+    <div className={styles.title}>
       <img src={iconType} alt="icon" />
       <div>
         {title}
@@ -46,10 +33,11 @@ const SubTitle = ({ title }: { title: string }) => {
   )
 }
 
-const WalletModal = ({ collection }: { collection: WalletCollection }) => {
+const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
   const { connectAsync, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-  const { connect: connectBtc, setCurrentWallet, connectors: btcConnectors } = useBtc()
+    useEthConnect();
+  const { setCurrentWallet } = useCurrentWallet()
+  const { connectors: btcConnectors, connect: connectBtc } = useBtcConnector()
   const { openConnectModal, hanldeCloseConnectModal } = useB2Modal()
   const { isConnected } = useAccount()
   const [installedMap, setInstalledMap] = useState<InstalledMap>(defaultInstalledMap)
@@ -62,16 +50,16 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   }, [collection])
 
   const getImageUrl = (wallet: string) => {
-    if (wallet.toLocaleLowerCase().includes('okx')) return iconOkx
-    if (wallet.toLocaleLowerCase().includes('unisat')) return iconUnisat
-    if (wallet.toLocaleLowerCase().includes('metamask')) return iconMetamask
+    if (wallet?.toLocaleLowerCase().includes('okx')) return iconOkx
+    if (wallet?.toLocaleLowerCase().includes('unisat')) return iconUnisat
+    if (wallet?.toLocaleLowerCase().includes('metamask')) return iconMetamask
     return ''
   }
 
   const getInstalled = useCallback((wallet: string) => {
-    if (wallet.toLocaleLowerCase().includes('okx')) return installedMap[WalletTypes.WALLET_OKX_EVM]
-    if (wallet.toLocaleLowerCase().includes('unisat')) return installedMap[WalletTypes.WALLET_UNISAT]
-    if (wallet.toLocaleLowerCase().includes('metamask')) return installedMap[WalletTypes.WALLET_METAMASK]
+    if (wallet?.toLocaleLowerCase().includes('okx')) return installedMap[WalletTypes.WALLET_OKX_EVM]
+    if (wallet?.toLocaleLowerCase().includes('unisat')) return installedMap[WalletTypes.WALLET_UNISAT]
+    if (wallet?.toLocaleLowerCase().includes('metamask')) return installedMap[WalletTypes.WALLET_METAMASK]
     return false
 
   }, [installedMap])
@@ -81,26 +69,30 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
       const res = await connectAsync({ connector: c })
     }
     let name
-    if (c.name.toLocaleLowerCase().includes('metamask')) {
+    if (c.name?.toLocaleLowerCase().includes('metamask')) {
       name = WalletTypes.WALLET_METAMASK
     }
-    if (c.name.toLocaleLowerCase().includes('okx')) name = WalletTypes.WALLET_OKX_EVM
-    setCurrentWallet(name)
+    if (c.name?.toLocaleLowerCase().includes('okx')) name = WalletTypes.WALLET_OKX_EVM
+    name && setCurrentWallet(name)
     name && saveWalletToLocal(name)
     hanldeCloseConnectModal()
   }
 
-  const connectBtcWallet = async (btcWallet: BtcConnectorName) => {
-    const res = await connectBtc(btcWallet)
-    if (btcWallet === 'OKX') {
-      setCurrentWallet(WalletTypes.WALLET_OKX_BTC)
-      saveWalletToLocal(WalletTypes.WALLET_OKX_BTC)
+  const connectBtcWallet = async (btcWallet: string) => {
+    try {
+      const res = await connectBtc(btcWallet)
+      if (btcWallet?.toLocaleLowerCase().includes('okx')) {
+        setCurrentWallet(WalletTypes.WALLET_OKX_BTC)
+        saveWalletToLocal(WalletTypes.WALLET_OKX_BTC)
+      }
+      if (btcWallet?.toLocaleLowerCase().includes('unisat')) {
+        setCurrentWallet(WalletTypes.WALLET_UNISAT)
+        saveWalletToLocal(WalletTypes.WALLET_UNISAT)
+      }
+      hanldeCloseConnectModal()
+    } catch (error) {
+      console.log('connect error for:', btcWallet)
     }
-    if (btcWallet === 'Unisat') {
-      setCurrentWallet(WalletTypes.WALLET_UNISAT)
-      saveWalletToLocal(WalletTypes.WALLET_UNISAT)
-    }
-    res && hanldeCloseConnectModal()
   }
 
   const getInstalledWallet = () => {
@@ -128,11 +120,11 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
       isOpen={openConnectModal}
       onRequestClose={hanldeCloseConnectModal}
       ariaHideApp={false}
-      className="b2WalletModal"
-      overlayClassName="overlay"
+      className={styles.b2WalletModal}
+      overlayClassName={styles.overlay}
     >
       <ModalHeader hanldeCloseConnectModal={hanldeCloseConnectModal} />
-      <div className="content">
+      <div className={styles.content}>
         {
           showEth && <div>
             <SubTitle title="Ethereum Wallet" />
@@ -157,15 +149,15 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
             <SubTitle title="Bitcoin Wallet" />
             {
               btcConnectors.map(c => {
-                const installed = getInstalled(c.name)
+                const installed = getInstalled(c.metadata.id)
                 return (
-                  <div key={c.name}
+                  <div key={c.metadata.id}
                     onClick={() => {
                       if (installed) {
-                        connectBtcWallet(c.name)
+                        connectBtcWallet(c.metadata.id)
                       }
                     }}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={`${c.name} Wallet`} />
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={`${c.metadata.id} Wallet`} />
                   </div>
                 )
               })
@@ -177,7 +169,4 @@ const WalletModal = ({ collection }: { collection: WalletCollection }) => {
   )
 }
 
-export {
-  WalletModal
-};
-export * from './context'
+export default ConnectModal
