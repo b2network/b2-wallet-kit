@@ -15,4 +15,6 @@ const useSignMessage = () => {
   return
 }
 
-export default useSignMessage
+export {
+  useSignMessage
+}
