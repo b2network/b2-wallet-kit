@@ -8,12 +8,12 @@ const useB2Account = () => {
   const { evmAccount } = useETHProvider()
   const { accounts } = useAccounts()
   const isBtcConnected = useMemo(() => accounts[0] ? true : false, [accounts])
-  const { currentWallet, walletType } = useCurrentWallet();
+  const { currentWallet, chainType } = useCurrentWallet();
   return {
-    isConnected: walletType === 'btc' ? isBtcConnected : walletType === 'eth' ? isConnected : false,
-    address: walletType === 'btc' ? accounts?.[0] : walletType === 'eth' ? address : '',
-    evmAddress: walletType === 'btc' ? evmAccount : walletType === 'eth' ? address : '',
-    walletType,
+    isConnected: chainType === 'btc' ? isBtcConnected : chainType === 'eth' ? isConnected : false,
+    address: chainType === 'btc' ? accounts?.[0] : chainType === 'eth' ? address : '',
+    evmAddress: chainType === 'btc' ? evmAccount : chainType === 'eth' ? address : '',
+    chainType,
     currentWallet
   }
 }

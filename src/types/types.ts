@@ -17,3 +17,8 @@ export enum WalletTypes {
   WALLET_OKX_EVM = 'okx_evm',
   WALLET_OKX_BTC = 'okx_btc',
 }
+
+export enum ChainType {
+  ETH = 'eth',
+  BTC = 'btc'
+}
