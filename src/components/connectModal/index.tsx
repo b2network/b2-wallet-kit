@@ -81,6 +81,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
   const connectBtcWallet = async (btcWallet: string) => {
     try {
       const res = await connectBtc(btcWallet)
+
       if (btcWallet?.toLocaleLowerCase().includes('okx')) {
         setCurrentWallet(WalletTypes.WALLET_OKX_BTC)
         saveWalletToLocal(WalletTypes.WALLET_OKX_BTC)

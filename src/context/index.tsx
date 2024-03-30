@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import ConnectModal from '../components/connectModal';
 import { BtcConnectorName, ChainType, WalletCollection, WalletTypes } from '../types/types';
 import { getWalletFromLocal } from '../utils/localstore';
-import { useConnector, useAccounts } from '@particle-network/btc-connectkit';
+import { useConnector, useAccounts, useBTCProvider } from '@particle-network/btc-connectkit';
 
 type GlobalContextType = {
   openConnectModal: boolean;
@@ -43,7 +43,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean 
   const handleOpenConnectModal = () => setOpenConnectModal(true);
   const [openDisconnectModal, setOpenDisconnectModal] = useState(false);
   const handleOpenDisconnectModal = () => setOpenDisconnectModal(true)
-  const handleCloseDisconnectModal = () => setOpenDisconnectModal(false)
+  const handleCloseDisconnectModal = () => setOpenDisconnectModal(false);
+  const [network, setNetwork] = useState<'livenet' | 'testnet'>()
+
+  const { getNetwork, switchNetwork } = useBTCProvider();
 
   const [walletCollection, setWalletCollection] = useState<WalletCollection>(WalletCollection.ALL)
 
@@ -68,6 +71,24 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean 
       return
     }
   }
+
+  useEffect(() => {
+    const getNet = async () => {
+      const net = await getNetwork();
+      setNetwork(net)
+    }
+    if (accounts.length > 0) {
+      getNet()
+    }
+  }, [accounts])
+
+  // auto switch to btc livenet
+  useEffect(() => {
+    if (network === 'testnet') {
+      switchNetwork('livenet')
+    }
+  }, [network])
+
 
   useEffect(() => {
     if (isAutoConnect) {
