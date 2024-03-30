@@ -64,6 +64,12 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
 
   }, [installedMap])
 
+  const getBtcWalletName = (id: string) => {
+    if (id.includes('unisat')) return 'UniSat Wallet'
+    if (id.includes('okx')) return 'OKX Wallet'
+    return ''
+  }
+
   const handleClickEthWallet = async (c: Connector) => {
     if (!isConnected) {
       const res = await connectAsync({ connector: c })
@@ -151,6 +157,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
             {
               btcConnectors.map(c => {
                 const installed = getInstalled(c.metadata.id)
+                const name = getBtcWalletName(c.metadata.id)
                 return (
                   <div key={c.metadata.id}
                     onClick={() => {
@@ -158,7 +165,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                         connectBtcWallet(c.metadata.id)
                       }
                     }}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={`${c.metadata.id} Wallet`} />
+                    <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={name} />
                   </div>
                 )
               })
