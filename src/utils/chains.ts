@@ -41,10 +41,10 @@ export const b2TestHabitat = defineChain<Chain, ChainFormatters | undefined>({
   },
   rpcUrls: {
     default: {
-      http: ['https://b2habitat-testnet.alt.technology'],
+      http: ['https://habitat-public-rpc.bsquared.network'],
     },
     public: {
-      http: ['https://b2habitat-testnet.alt.technology'],
+      http: ['https://habitat-public-rpc.bsquared.network'],
     },
   },
 })
