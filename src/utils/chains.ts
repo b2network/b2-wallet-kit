@@ -36,7 +36,7 @@ export const b2TestHabitat = defineChain<Chain, ChainFormatters | undefined>({
   blockExplorers: {
     default: {
       name: 'B2-Haven',
-      url: 'https://haven-explorer.bsquared.network'
+      url: 'https://habitat-explorer.bsquared.network'
     }
   },
   rpcUrls: {
