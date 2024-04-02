@@ -33,7 +33,7 @@ export const useB2Modal = () => {
   return context
 }
 
-export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean }> = ({ children, isAutoConnect = false }) => {
+export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean, btcNetwork: 'livenet' | 'testnet' }> = ({ children, isAutoConnect = false, btcNetwork = 'livenet' }) => {
   const { connect } = useConnector();
   const { accounts } = useAccounts();
   const [currentWallet, setCurrentWallet] = useState<WalletTypes>()
@@ -84,10 +84,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean 
 
   // auto switch to btc livenet
   useEffect(() => {
-    if (network === 'testnet') {
-      switchNetwork('livenet')
+    if (network && (network !== btcNetwork)) {
+      switchNetwork(btcNetwork)
     }
-  }, [network])
+  }, [network, btcNetwork])
 
 
   useEffect(() => {
