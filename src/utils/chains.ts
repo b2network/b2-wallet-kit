@@ -48,3 +48,27 @@ export const b2TestHabitat = defineChain<Chain, ChainFormatters | undefined>({
     },
   },
 })
+export const b2Testnet = defineChain<Chain, ChainFormatters | undefined>({
+  id: 1123,
+  name: 'B2-Testnet',
+  network: 'B2 Testnet ',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Bitcoin',
+    symbol: 'BTC',
+  },
+  blockExplorers: {
+    default: {
+      name: 'B2-Testnet',
+      url: 'https://testnet-explorer.bsquared.network'
+    }
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://b2-testnet.alt.technology'],
+    },
+    public: {
+      http: ['https://b2-testnet.alt.technology'],
+    },
+  },
+})
