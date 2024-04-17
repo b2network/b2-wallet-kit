@@ -84,7 +84,7 @@ export const b2Network = defineChain<Chain, ChainFormatters | undefined>({
   blockExplorers: {
     default: {
       name: 'B2Network',
-      url: ' https://explorer.bsquared.network/'
+      url: 'https://explorer.bsquared.network/'
     }
   },
   rpcUrls: {
