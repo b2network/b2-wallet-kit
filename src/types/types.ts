@@ -16,6 +16,7 @@ export enum WalletTypes {
   WALLET_UNISAT = 'unisat',
   WALLET_OKX_EVM = 'okx_evm',
   WALLET_OKX_BTC = 'okx_btc',
+  WALLET_GATE = 'gate'
 }
 
 export enum ChainType {

@@ -6,6 +6,7 @@ import { WalletCollection, WalletTypes, InstalledMap } from "../../types/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import iconMetamask from '../../imgs/icon_metamask.png'
 import iconOkx from '../../imgs/icon_okx.svg'
+import iconGate from '../../imgs/icon_gate.svg'
 import iconUnisat from '../../imgs/icon_unisat.svg'
 import iconType from '../../imgs/icon_type.svg'
 import { saveWalletToLocal } from "../../utils";
@@ -20,6 +21,7 @@ const defaultInstalledMap: Record<WalletTypes, boolean> = {
   unisat: false,
   okx_btc: false,
   okx_evm: false,
+  gate: false
 }
 
 const SubTitle = ({ title }: { title: string }) => {
@@ -53,6 +55,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     if (wallet?.toLocaleLowerCase().includes('okx')) return iconOkx
     if (wallet?.toLocaleLowerCase().includes('unisat')) return iconUnisat
     if (wallet?.toLocaleLowerCase().includes('metamask')) return iconMetamask
+    if (wallet?.toLocaleLowerCase().includes('gate')) return iconGate
     return ''
   }
 
@@ -60,6 +63,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     if (wallet?.toLocaleLowerCase().includes('okx')) return installedMap[WalletTypes.WALLET_OKX_EVM]
     if (wallet?.toLocaleLowerCase().includes('unisat')) return installedMap[WalletTypes.WALLET_UNISAT]
     if (wallet?.toLocaleLowerCase().includes('metamask')) return installedMap[WalletTypes.WALLET_METAMASK]
+    if (wallet?.toLocaleLowerCase().includes('gate')) return installedMap[WalletTypes.WALLET_GATE]
     return false
 
   }, [installedMap])
@@ -78,6 +82,10 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     if (c.name?.toLocaleLowerCase().includes('metamask')) {
       name = WalletTypes.WALLET_METAMASK
     }
+    if (c.name?.toLocaleLowerCase().includes('gate')) {
+      name = WalletTypes.WALLET_GATE
+    }
+
     if (c.name?.toLocaleLowerCase().includes('okx')) name = WalletTypes.WALLET_OKX_EVM
     name && setCurrentWallet(name)
     name && saveWalletToLocal(name)
@@ -109,6 +117,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     }
     if (window.unisat) installed.unisat = true;
     if (window.ethereum) installed.metamask = true;
+    if (window.gatewallet) installed.gate = true;
     if (window.okxwallet) {
       installed.okx_btc = true;
       installed.okx_evm = true

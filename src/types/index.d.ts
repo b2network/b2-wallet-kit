@@ -2,6 +2,7 @@ declare global {
   interface Window {
     ethereum: any,
     okxwallet: any,
+    gatewallet: any,
     unisat: {
       requestAccounts: () => Promise<string[]>;
       getPublicKey: () => Promise<string>;
@@ -13,6 +14,7 @@ declare global {
 interface Window {
   ethereum: any,
   okxwallet: any,
+  gatewallet: any,
   unisat: {
     requestAccounts: () => Promise<string[]>;
     getPublicKey: () => Promise<string>;
