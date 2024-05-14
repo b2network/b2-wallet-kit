@@ -119,7 +119,7 @@ export const useCurrentWallet = () => {
   const { currentWallet, setCurrentWallet } = useB2Modal();
   const chainType: ChainType | undefined = useMemo(() => {
     if (currentWallet === WalletTypes.WALLET_UNISAT || currentWallet === WalletTypes.WALLET_OKX_BTC) return ChainType.BTC
-    if (currentWallet === WalletTypes.WALLET_METAMASK || currentWallet === WalletTypes.WALLET_OKX_EVM) return ChainType.ETH
+    if (currentWallet === WalletTypes.WALLET_METAMASK || currentWallet === WalletTypes.WALLET_OKX_EVM || currentWallet === WalletTypes.WALLET_GATE) return ChainType.ETH
     return
   }, [currentWallet])
   return {
