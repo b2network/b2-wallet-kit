@@ -14,7 +14,7 @@ import WalletItem from "./WalletItem";
 import ModalHeader from "./ModalHeader";
 import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
-import { useB2Disconnect } from "src/hooks";
+import { useB2Disconnect } from "../../hooks/useB2Disconnect";
 
 
 const defaultInstalledMap: Record<WalletTypes, boolean> = {
