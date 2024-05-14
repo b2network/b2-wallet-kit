@@ -14,6 +14,7 @@ import WalletItem from "./WalletItem";
 import ModalHeader from "./ModalHeader";
 import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
+import { useB2Disconnect } from "src/hooks";
 
 
 const defaultInstalledMap: Record<WalletTypes, boolean> = {
@@ -43,7 +44,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
   const { openConnectModal, handleCloseConnectModal } = useB2Modal()
   const { isConnected } = useAccount()
   const [installedMap, setInstalledMap] = useState<InstalledMap>(defaultInstalledMap)
-
+  const { disconnect: disconnectBtc } = useB2Disconnect()
   const showEth = useMemo(() => {
     return collection === WalletCollection.ALL || collection === WalletCollection.ETH
   }, [collection])
@@ -94,8 +95,8 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
 
   const connectBtcWallet = async (btcWallet: string) => {
     try {
+      await disconnectBtc()
       const res = await connectBtc(btcWallet)
-
       if (btcWallet?.toLocaleLowerCase().includes('okx')) {
         setCurrentWallet(WalletTypes.WALLET_OKX_BTC)
         saveWalletToLocal(WalletTypes.WALLET_OKX_BTC)
