@@ -7,7 +7,7 @@ import { useConnector, useAccounts, useBTCProvider } from '@particle-network/btc
 
 type GlobalContextType = {
   openConnectModal: boolean;
-  hanldeCloseConnectModal: () => void;
+  handleCloseConnectModal: () => void;
   handleOpenConnectModal: () => void;
   handleOpenDisconnectModal: () => void;
   handleCloseDisconnectModal: () => void;
@@ -18,7 +18,7 @@ type GlobalContextType = {
 };
 const globalContextDefaultValues: GlobalContextType = {
   openConnectModal: false,
-  hanldeCloseConnectModal: () => { },
+  handleCloseConnectModal: () => { },
   handleOpenConnectModal: () => { },
   handleCloseDisconnectModal: () => { },
   handleOpenDisconnectModal: () => { },
@@ -37,9 +37,9 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
   const { connect } = useConnector();
   const { accounts } = useAccounts();
   const [currentWallet, setCurrentWallet] = useState<WalletTypes>()
-  const isBtcConnected = useMemo(() => accounts.length > 0, [accounts])
+  const isBtcConnected = useMemo(() => accounts?.length || 0 > 0, [accounts])
   const [openConnectModal, setOpenConnectModal] = useState(false);
-  const hanldeCloseConnectModal = () => setOpenConnectModal(false);
+  const handleCloseConnectModal = () => setOpenConnectModal(false);
   const handleOpenConnectModal = () => setOpenConnectModal(true);
   const [openDisconnectModal, setOpenDisconnectModal] = useState(false);
   const handleOpenDisconnectModal = () => setOpenDisconnectModal(true)
@@ -56,7 +56,7 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
 
   const autoConnect = async () => {
     const w = getWalletFromLocal()
-    if (w === WalletTypes.WALLET_METAMASK || w === WalletTypes.WALLET_OKX_EVM) {
+    if (w === WalletTypes.WALLET_METAMASK || w === WalletTypes.WALLET_OKX_EVM || w === WalletTypes.WALLET_GATE) {
       setCurrentWallet(w)
       return
     }
@@ -98,7 +98,7 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
 
   const providerValue = {
     openConnectModal,
-    hanldeCloseConnectModal,
+    handleCloseConnectModal,
     handleOpenConnectModal,
     openDisconnectModal,
     handleCloseDisconnectModal,
@@ -130,10 +130,10 @@ export const useCurrentWallet = () => {
 }
 
 export const useOpenModal = () => {
-  const { hanldeCloseConnectModal, handleOpenConnectModal } = useB2Modal();
+  const { handleCloseConnectModal, handleOpenConnectModal } = useB2Modal();
   return {
     handleOpenConnectModal,
-    hanldeCloseConnectModal
+    handleCloseConnectModal
   }
 }
 

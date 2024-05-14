@@ -40,7 +40,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     useEthConnect();
   const { setCurrentWallet } = useCurrentWallet()
   const { connectors: btcConnectors, connect: connectBtc } = useBtcConnector()
-  const { openConnectModal, hanldeCloseConnectModal } = useB2Modal()
+  const { openConnectModal, handleCloseConnectModal } = useB2Modal()
   const { isConnected } = useAccount()
   const [installedMap, setInstalledMap] = useState<InstalledMap>(defaultInstalledMap)
 
@@ -89,7 +89,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     if (c.name?.toLocaleLowerCase().includes('okx')) name = WalletTypes.WALLET_OKX_EVM
     name && setCurrentWallet(name)
     name && saveWalletToLocal(name)
-    hanldeCloseConnectModal()
+    handleCloseConnectModal()
   }
 
   const connectBtcWallet = async (btcWallet: string) => {
@@ -104,7 +104,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
         setCurrentWallet(WalletTypes.WALLET_UNISAT)
         saveWalletToLocal(WalletTypes.WALLET_UNISAT)
       }
-      hanldeCloseConnectModal()
+      handleCloseConnectModal()
     } catch (error) {
       console.log('connect error for:', btcWallet)
     }
@@ -134,12 +134,12 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
   return (
     <Modal
       isOpen={openConnectModal}
-      onRequestClose={hanldeCloseConnectModal}
+      onRequestClose={handleCloseConnectModal}
       ariaHideApp={false}
       className={styles.b2WalletModal}
       overlayClassName={styles.overlay}
     >
-      <ModalHeader hanldeCloseConnectModal={hanldeCloseConnectModal} />
+      <ModalHeader handleCloseConnectModal={handleCloseConnectModal} />
       <div className={styles.content}>
         {
           showEth && <div>
