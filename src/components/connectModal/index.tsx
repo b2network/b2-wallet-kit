@@ -12,7 +12,7 @@ import ModalHeader from "./ModalHeader";
 import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
 import { useB2Disconnect } from "../../hooks/useB2Disconnect";
-import { WalletIconConf, btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer } from "../../utils/wallet";
+import { WalletIconConf, btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName } from "../../utils/wallet";
 
 
 const SubTitle = ({ title }: { title: string }) => {
@@ -47,20 +47,20 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     return ''
   }
 
-  const getInstalled = useCallback((wallet: string) => {
-    if (wallet?.toLocaleLowerCase().includes('okx')) return installedMap[WalletTypes.WALLET_OKX_EVM]
-    if (wallet?.toLocaleLowerCase().includes('unisat')) return installedMap[WalletTypes.WALLET_UNISAT]
-    if (wallet?.toLocaleLowerCase().includes('metamask')) return installedMap[WalletTypes.WALLET_METAMASK]
-    if (wallet?.toLocaleLowerCase().includes('gate')) return installedMap[WalletTypes.WALLET_GATE]
+  const getInstalled = useCallback((wallet: string, walletType: 'evm' | 'btc') => {
+    if (walletType === 'evm') {
+      const name = evmWalletNameTransformer(wallet)
+      if (name) return installedMap[name]
+    }
+    if (walletType === 'btc') {
+      const name = btcWalletNameTransformer(wallet)
+      if (name) return installedMap[name]
+    }
     return false
 
   }, [installedMap])
 
-  const getBtcWalletName = (id: string) => {
-    if (id.includes('unisat')) return 'UniSat Wallet'
-    if (id.includes('okx')) return 'OKX Wallet'
-    return ''
-  }
+
 
   const handleClickEthWallet = async (c: Connector) => {
     if (!isConnected) {
@@ -115,7 +115,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
             <SubTitle title="Ethereum Wallet" />
             {
               showEth && connectors.map(c => {
-                const installed = getInstalled(c.name)
+                const installed = getInstalled(c.name, 'evm')
                 return (
                   <div onClick={() => {
                     if (installed) {
@@ -134,7 +134,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
             <SubTitle title="Bitcoin Wallet" />
             {
               btcConnectors.map(c => {
-                const installed = getInstalled(c.metadata.id)
+                const installed = getInstalled(c.metadata.id, 'btc')
                 const name = getBtcWalletName(c.metadata.id)
                 return (
                   <div key={c.metadata.id}
