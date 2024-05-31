@@ -21,7 +21,7 @@ export const defaultInstalledMap: InstalledObj = {
 }
 
 
-export const EvmWalletRecord: Record<EvmConnectorName, WalletTypes> = {
+export const walletNameRecord: Record<EvmConnectorName, WalletTypes> = {
   gate: WalletTypes.WALLET_OKX_EVM,
   metamask: WalletTypes.WALLET_METAMASK,
   bybit: WalletTypes.WALLET_BYBIT_EVM,
@@ -77,12 +77,17 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
     installed.bybit_evm = true
   }
   if (window.tomo_evm) {
-    window.tomo_btc = true;
-    window.tomo_evm = true
+    installed.tomo_btc = true;
+    installed.tomo_evm = true
   }
   return installed
 }
-
+export const getBtcWalletName = (wallet: string) => {
+  if (wallet.toLowerCase().includes('unisat')) return 'UniSat Wallet'
+  if (wallet.toLowerCase().includes('okx')) return 'OKX Wallet'
+  if (wallet.toLocaleLowerCase().includes('tomo')) return 'Tomo Wallet'
+  return ''
+}
 export const WalletIconConf = [
   {
     name: 'metamask', icon: iconMetamask,
