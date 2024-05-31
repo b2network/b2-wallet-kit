@@ -1,10 +1,4 @@
 import { WalletTypes } from "./types";
-import iconMetamask from '../../imgs/icon_metamask.png'
-import iconOkx from '../../imgs/icon_okx.svg'
-import iconGate from '../../imgs/icon_gate.svg'
-import iconTomo from '../../imgs/tomo.png'
-import iconUnisat from '../../imgs/icon_unisat.svg'
-import iconBybit from '../../imgs/bybit.png'
 
 export type InstalledObj = Record<WalletTypes, boolean>
 export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx'
@@ -90,18 +84,18 @@ export const getBtcWalletName = (wallet: string) => {
 }
 export const WalletIconConf = [
   {
-    name: 'metamask', icon: iconMetamask,
+    name: 'metamask', icon: '../../imgs/icon_metamask.png',
   }, {
-    name: 'okx', icon: iconOkx,
+    name: 'okx', icon: '../../imgs/icon_okx.svg',
   }, {
-    name: 'unisat', icon: iconUnisat,
+    name: 'unisat', icon: '../../imgs/icon_unisat.svg',
   }, {
-    name: 'tomo', icon: iconTomo,
+    name: 'tomo', icon: '../../imgs/tomo.png',
   },
   {
-    name: 'bybit', icon: iconBybit
+    name: 'bybit', icon: '../../imgs/bybit.png'
   },
   {
-    name: 'gate', icon: iconGate
+    name: 'gate', icon: '../../imgs/icon_gate.svg'
   }
 ]
