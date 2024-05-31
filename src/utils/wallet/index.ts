@@ -2,7 +2,7 @@ import { WalletTypes } from "./types";
 import iconMetamask from '../../imgs/icon_metamask.png'
 import iconOkx from '../../imgs/icon_okx.svg'
 import iconGate from '../../imgs/icon_gate.svg'
-import iconTomo from '../../img/tomo.png'
+import iconTomo from '../../imgs/tomo.png'
 import iconUnisat from '../../imgs/icon_unisat.svg'
 import iconBybit from '../../imgs/bybit.png'
 
