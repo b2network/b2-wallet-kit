@@ -1,4 +1,4 @@
-import { WalletTypes } from "../types/types"
+import { WalletTypes } from "./wallet/types"
 
 const KEY_WALLET = 'currentWallet'
 

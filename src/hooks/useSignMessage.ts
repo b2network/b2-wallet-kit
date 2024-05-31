@@ -1,7 +1,7 @@
 import { useBTCProvider } from "@particle-network/btc-connectkit";
 import { useWalletClient } from "wagmi"
 import { useCurrentWallet } from "../context";
-import { ChainType } from "../types/types";
+import { ChainType } from "../utils/wallet/types";
 
 
 const useSignMessage = () => {

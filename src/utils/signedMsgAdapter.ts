@@ -1,5 +1,5 @@
 import { concatHex } from "viem";
-import { WalletTypes } from "../types/types";
+import { WalletTypes } from "./wallet/types";
 
 enum ConnectorTypeCode {
   eth = '0x00',

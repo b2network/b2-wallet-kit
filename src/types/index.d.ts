@@ -15,6 +15,9 @@ interface Window {
   ethereum: any,
   okxwallet: any,
   gatewallet: any,
+  bybitWallet: any,
+  tomo_evm: any,
+  tomo_btc: any,
   unisat: {
     requestAccounts: () => Promise<string[]>;
     getPublicKey: () => Promise<string>;
