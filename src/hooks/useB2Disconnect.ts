@@ -6,6 +6,7 @@ import { WalletTypes } from "../utils/wallet/types";
 import { clearWalletFromLocal } from "../utils/localstore";
 import { useCurrentWallet } from "../context";
 import { useConnectModal } from "@particle-network/btc-connectkit";
+import { EvmWalletArr } from "../utils/wallet";
 
 
 const useB2Disconnect = () => {
@@ -14,7 +15,7 @@ const useB2Disconnect = () => {
   const { isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const handleDisconnect = useCallback(() => {
-    if ((currentWallet === WalletTypes.WALLET_METAMASK || currentWallet === WalletTypes.WALLET_OKX_EVM) && isConnected) {
+    if (currentWallet && EvmWalletArr.includes(currentWallet) && isConnected) {
       disconnect()
     } else {
       disconnectBtc()

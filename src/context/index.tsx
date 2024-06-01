@@ -4,6 +4,7 @@ import ConnectModal from '../components/connectModal';
 import { BtcConnectorName, ChainType, WalletCollection, WalletTypes } from '../utils/wallet/types';
 import { getWalletFromLocal } from '../utils/localstore';
 import { useConnector, useAccounts, useBTCProvider } from '@particle-network/btc-connectkit';
+import { BtcWalletArr, EvmWalletArr } from '../utils/wallet';
 
 type GlobalContextType = {
   openConnectModal: boolean;
@@ -118,8 +119,8 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
 export const useCurrentWallet = () => {
   const { currentWallet, setCurrentWallet } = useB2Modal();
   const chainType: ChainType | undefined = useMemo(() => {
-    if (currentWallet === WalletTypes.WALLET_UNISAT || currentWallet === WalletTypes.WALLET_OKX_BTC) return ChainType.BTC
-    if (currentWallet === WalletTypes.WALLET_METAMASK || currentWallet === WalletTypes.WALLET_OKX_EVM || currentWallet === WalletTypes.WALLET_GATE) return ChainType.ETH
+    if (currentWallet && BtcWalletArr.includes(currentWallet)) return ChainType.BTC
+    if (currentWallet && EvmWalletArr.includes(currentWallet)) return ChainType.ETH
     return
   }, [currentWallet])
   return {

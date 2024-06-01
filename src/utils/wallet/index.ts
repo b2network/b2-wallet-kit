@@ -3,6 +3,8 @@ import { WalletTypes } from "./types";
 export type InstalledObj = Record<WalletTypes, boolean>
 export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx'
 
+export const BtcWalletArr = [WalletTypes.WALLET_OKX_BTC, WalletTypes.WALLET_TOMO_BTC, WalletTypes.WALLET_UNISAT]
+export const EvmWalletArr = [WalletTypes.WALLET_GATE, WalletTypes.WALLET_METAMASK, WalletTypes.WALLET_BYBIT_EVM, WalletTypes.WALLET_OKX_EVM, WalletTypes.WALLET_TOMO_EVM]
 export const defaultInstalledMap: InstalledObj = {
   metamask: false,
   unisat: false,

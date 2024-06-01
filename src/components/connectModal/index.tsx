@@ -43,8 +43,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
   }, [collection])
 
   const getImageUrl = (wallet: string) => {
-    WalletIconConf.find(v => wallet?.toLocaleLowerCase().includes(v.name))?.icon || ''
-    return ''
+    return WalletIconConf.find(v => wallet?.toLocaleLowerCase().includes(v.name))?.icon || ''
   }
 
   const getInstalled = useCallback((wallet: string, walletType: 'evm' | 'btc') => {
@@ -67,6 +66,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
       const res = await connectAsync({ connector: c })
     }
     let name = evmWalletNameTransformer(c.name)
+    console.log(name, 'evm clicked')
     name && setCurrentWallet(name)
     name && saveWalletToLocal(name)
     handleCloseConnectModal()
@@ -77,6 +77,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
       await disconnectBtc()
       const res = await connectBtc(btcWallet)
       const name = btcWalletNameTransformer(btcWallet)
+      console.log(name, 'btc clicked')
       name && setCurrentWallet(name)
       name && saveWalletToLocal(name)
       handleCloseConnectModal()
