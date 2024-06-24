@@ -8,7 +8,7 @@ import iconBybit from '../../imgs/bybit.png'
 export type InstalledObj = Record<WalletTypes, boolean>
 export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx'
 
-export const BtcWalletArr = [WalletTypes.WALLET_OKX_BTC, WalletTypes.WALLET_TOMO_BTC, WalletTypes.WALLET_UNISAT]
+export const BtcWalletArr = [WalletTypes.WALLET_OKX_BTC, WalletTypes.WALLET_TOMO_BTC, WalletTypes.WALLET_UNISAT, WalletTypes.WALLET_BYBIT_BTC]
 export const EvmWalletArr = [WalletTypes.WALLET_GATE, WalletTypes.WALLET_METAMASK, WalletTypes.WALLET_BYBIT_EVM, WalletTypes.WALLET_OKX_EVM, WalletTypes.WALLET_TOMO_EVM]
 export const defaultInstalledMap: InstalledObj = {
   metamask: false,
@@ -18,7 +18,8 @@ export const defaultInstalledMap: InstalledObj = {
   gate: false,
   tomo_evm: false,
   tomo_btc: false,
-  bybit_evm: false
+  bybit_evm: false,
+  bybit_btc: false
 }
 
 
@@ -60,6 +61,9 @@ export const btcWalletNameTransformer = (wallet: string): WalletTypes | undefine
   if (wallet?.toLocaleLowerCase().includes('tomo')) {
     name = WalletTypes.WALLET_TOMO_BTC
   }
+  if (wallet?.toLocaleLowerCase().includes('bybit')) {
+    name = WalletTypes.WALLET_BYBIT_BTC
+  }
   return name
 }
 
@@ -76,6 +80,7 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
   }
   if (window.bybitWallet) {
     installed.bybit_evm = true
+    installed.bybit_btc = true
   }
   if (window.tomo_evm) {
     installed.tomo_btc = true;
@@ -87,6 +92,7 @@ export const getBtcWalletName = (wallet: string) => {
   if (wallet.toLowerCase().includes('unisat')) return 'UniSat Wallet'
   if (wallet.toLowerCase().includes('okx')) return 'OKX Wallet'
   if (wallet.toLocaleLowerCase().includes('tomo')) return 'Tomo Wallet'
+  if (wallet.toLocaleLowerCase().includes('bybit')) return 'Bybit Wallet'
   return ''
 }
 export const WalletIconConf = [

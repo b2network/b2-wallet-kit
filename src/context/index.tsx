@@ -70,6 +70,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       await connect("okx")
       setCurrentWallet(w)
       return
+    } if (w === WalletTypes.WALLET_BYBIT_BTC && !isBtcConnected) {
+      await connect("bybit")
+      setCurrentWallet(w)
+      return
     }
   }
 

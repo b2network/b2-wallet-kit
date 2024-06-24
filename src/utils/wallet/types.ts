@@ -1,7 +1,8 @@
 export enum BtcConnectorName {
   Unisat = 'Unisat',
   OKX = 'OKX',
-  Tomo = 'Tomo'
+  Tomo = 'Tomo',
+  Bybit = 'Bybit'
 }
 export type Network = 'livenet' | 'testnet'
 
@@ -20,7 +21,8 @@ export enum WalletTypes {
   WALLET_GATE = 'gate',
   WALLET_TOMO_EVM = 'tomo_evm',
   WALLET_TOMO_BTC = 'tomo_btc',
-  WALLET_BYBIT_EVM = 'bybit_evm'
+  WALLET_BYBIT_EVM = 'bybit_evm',
+  WALLET_BYBIT_BTC = 'bybit_btc'
 }
 
 export enum ChainType {
