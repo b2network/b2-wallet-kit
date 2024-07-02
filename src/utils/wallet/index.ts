@@ -38,14 +38,6 @@ export const defaultInstalledMap: InstalledObj = {
   coin98_evm: false
 }
 
-
-export const walletNameRecord: Record<EvmConnectorName, WalletTypes> = {
-  gate: WalletTypes.WALLET_OKX_EVM,
-  metamask: WalletTypes.WALLET_METAMASK,
-  bybit: WalletTypes.WALLET_BYBIT_EVM,
-  okx: WalletTypes.WALLET_OKX_EVM
-}
-
 export const evmWalletNameTransformer = (wallet: string): WalletTypes | undefined => {
   let name
   if (wallet?.toLocaleLowerCase().includes('metamask')) {
