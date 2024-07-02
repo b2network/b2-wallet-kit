@@ -74,6 +74,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       await connect("bybit")
       setCurrentWallet(w)
       return
+    } if (w === WalletTypes.WALLET_COIN98_BTC && !isBtcConnected) {
+      await connect("coin98")
+      setCurrentWallet(w)
+      return
     }
   }
 

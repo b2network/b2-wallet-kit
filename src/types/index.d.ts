@@ -3,6 +3,7 @@ declare global {
     ethereum: any,
     okxwallet: any,
     gatewallet: any,
+    coin98: any,
     unisat: {
       requestAccounts: () => Promise<string[]>;
       getPublicKey: () => Promise<string>;
@@ -18,6 +19,7 @@ interface Window {
   bybitWallet: any,
   tomo_evm: any,
   tomo_btc: any,
+  coin98: any,
   unisat: {
     requestAccounts: () => Promise<string[]>;
     getPublicKey: () => Promise<string>;
