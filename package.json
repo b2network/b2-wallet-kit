@@ -1,6 +1,6 @@
 {
   "name": "@b2network/b2-wallet-kit",
-  "version": "0.3.32",
+  "version": "0.3.33",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
