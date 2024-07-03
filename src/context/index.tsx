@@ -57,7 +57,13 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
 
   const autoConnect = async () => {
     const w = getWalletFromLocal()
-    if (w === WalletTypes.WALLET_METAMASK || w === WalletTypes.WALLET_OKX_EVM || w === WalletTypes.WALLET_GATE) {
+    if (
+      w === WalletTypes.WALLET_METAMASK ||
+      w === WalletTypes.WALLET_OKX_EVM ||
+      w === WalletTypes.WALLET_GATE ||
+      w === WalletTypes.WALLET_BYBIT_EVM ||
+      w === WalletTypes.WALLET_COIN98_EVM
+    ) {
       setCurrentWallet(w)
       return
     }
