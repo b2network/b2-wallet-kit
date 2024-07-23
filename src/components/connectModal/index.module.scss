@@ -54,10 +54,20 @@
       cursor: pointer;
       border: 1px solid #000;
       border-radius: 4px;
+      @media only screen and (max-width: 600px) {
+        padding: 12px 8px;
+      }
       .left {
         display: flex;
         gap: 16px;
         align-items: center;
+        @media only screen and (max-width: 600px) {
+          gap: "10px";
+          .walletLogo {
+            width: 24px;
+            height: 24px;
+          }
+        }
         .walletLogo {
           width: 32px;
           height: 32px;
