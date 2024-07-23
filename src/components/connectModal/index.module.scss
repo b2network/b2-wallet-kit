@@ -36,6 +36,15 @@
       font-size: 20px;
       margin-bottom: 12px;
     }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      .row_item {
+        width: 48%;
+      }
+    }
     .walletItem {
       display: flex;
       align-items: center;
