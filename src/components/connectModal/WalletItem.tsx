@@ -1,5 +1,3 @@
-import iconArrow from '../../imgs/icon_arrow.svg'
-import { getDownloadUrlByKey } from '../../utils'
 import styles from './index.module.scss';
 
 type Iprops = {
@@ -29,7 +27,6 @@ const WalletItem = ({ walletIcon, walletName, installed }: Iprops) => {
             url && window.open(url)
           }}>Install</div>
         } */}
-        <img className={styles.arrow} src={iconArrow} alt="icon" />
       </div>
     </div>
   )
