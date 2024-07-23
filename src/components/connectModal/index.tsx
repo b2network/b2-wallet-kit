@@ -114,20 +114,24 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
         {
           showEth && <div>
             <SubTitle title="Ethereum Wallet" />
-            {
-              showEth && connectors.map(c => {
-                const installed = getInstalled(c.name, 'evm')
-                return (
-                  <div onClick={() => {
-                    if (installed) {
-                      handleClickEthWallet(c)
-                    }
-                  }} key={c.name}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
-                  </div>
-                )
-              })
-            }
+            <div className={styles.row}>
+              {
+                showEth && connectors.map(c => {
+                  const installed = getInstalled(c.name, 'evm')
+                  return (
+                    <div
+                      className={styles.row_item}
+                      onClick={() => {
+                        if (installed) {
+                          handleClickEthWallet(c)
+                        }
+                      }} key={c.name}>
+                      <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         }
         {
