@@ -120,7 +120,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                   const installed = getInstalled(c.name, 'evm')
                   return (
                     <div
-                      className={styles.row_item}
+                      className={styles.rowItem}
                       onClick={() => {
                         if (installed) {
                           handleClickEthWallet(c)
@@ -137,22 +137,26 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
         {
           showBtc && <div>
             <SubTitle title="Bitcoin Wallet" />
-            {
-              btcConnectors.map(c => {
-                const installed = getInstalled(c.metadata.id, 'btc')
-                const name = getBtcWalletName(c.metadata.id)
-                return (
-                  <div key={c.metadata.id}
-                    onClick={() => {
-                      if (installed) {
-                        connectBtcWallet(c.metadata.id)
-                      }
-                    }}>
-                    <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={name} />
-                  </div>
-                )
-              })
-            }
+            <div className={styles.row}>
+              {
+                btcConnectors.map(c => {
+                  const installed = getInstalled(c.metadata.id, 'btc')
+                  const name = getBtcWalletName(c.metadata.id)
+                  return (
+                    <div key={c.metadata.id}
+                      className={styles.rowItem}
+                      onClick={() => {
+                        if (installed) {
+                          connectBtcWallet(c.metadata.id)
+                        }
+                      }}>
+                      <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={name} />
+                    </div>
+                  )
+                })
+              }
+            </div>
+
           </div>
         }
       </div>
