@@ -18,7 +18,7 @@ const useB2Disconnect = () => {
     if (currentWallet && EvmWalletArr.includes(currentWallet) && isConnected) {
       disconnect()
     } else {
-      disconnectBtc()
+      disconnectBtc && disconnectBtc()
     }
     setCurrentWallet(undefined)
     clearWalletFromLocal()

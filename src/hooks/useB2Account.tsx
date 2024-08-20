@@ -5,7 +5,7 @@ import { useAccount } from "wagmi"
 
 const useB2Account = () => {
   const { address, isConnected } = useAccount();
-  const { evmAccount } = useETHProvider()
+  const { account: evmAccount } = useETHProvider()
   const { accounts } = useAccounts()
   const isBtcConnected = useMemo(() => accounts[0] ? true : false, [accounts])
   const { currentWallet, chainType } = useCurrentWallet();

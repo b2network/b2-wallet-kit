@@ -1,6 +1,6 @@
 import { Chain, ChainFormatters, defineChain } from 'viem'
 
-export const b2TestHaven = defineChain<Chain, ChainFormatters | undefined>({
+export const b2TestHaven = defineChain({
   id: 1102,
   name: 'B2-Haven',
   network: 'B2-Haven',
@@ -24,7 +24,7 @@ export const b2TestHaven = defineChain<Chain, ChainFormatters | undefined>({
     },
   },
 })
-export const b2TestHabitat = defineChain<Chain, ChainFormatters | undefined>({
+export const b2TestHabitat = defineChain({
   id: 1123,
   name: 'B2-Habitat',
   network: 'Habitat Testnet ',
@@ -48,7 +48,7 @@ export const b2TestHabitat = defineChain<Chain, ChainFormatters | undefined>({
     },
   },
 })
-export const b2Testnet = defineChain<Chain, ChainFormatters | undefined>({
+export const b2Testnet = defineChain({
   id: 1123,
   name: 'B2-Testnet',
   network: 'B2 Testnet ',
@@ -72,7 +72,7 @@ export const b2Testnet = defineChain<Chain, ChainFormatters | undefined>({
     },
   },
 })
-export const b2Network = defineChain<Chain, ChainFormatters | undefined>({
+export const b2Network = defineChain({
   id: 223,
   name: 'B2Network',
   network: 'B2Network',
