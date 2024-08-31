@@ -126,7 +126,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                           handleClickEthWallet(c)
                         }
                       }} key={c.name}>
-                      <WalletItem installed={installed} walletIcon={getImageUrl(c.name)} walletName={c.name} />
+                      <WalletItem installed={installed} walletIcon={getImageUrl(c.name) || c.icon} walletName={c.name} />
                     </div>
                   )
                 })
