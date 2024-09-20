@@ -10,4 +10,4 @@ export const getDownloadUrlByKey = (wallet: string) => {
   return ''
 }
 
-export * from './localStore'
+export * from './localStorage'

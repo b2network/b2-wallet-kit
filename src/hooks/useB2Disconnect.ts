@@ -3,7 +3,7 @@
 import { useAccount, useDisconnect } from "wagmi";
 import { useCallback } from "react";
 import { WalletTypes } from "../utils/wallet/types";
-import { clearWalletFromLocal } from "../utils/localStore";
+import { clearWalletFromLocal } from "../utils/localStorage";
 import { useCurrentWallet } from "../context";
 import { useConnectModal } from "@particle-network/btc-connectkit";
 import { EvmWalletArr } from "../utils/wallet";
