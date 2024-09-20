@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import ConnectModal from '../components/connectModal';
-import { BtcConnectorName, ChainType, WalletCollection, WalletTypes } from '../utils/wallet/types';
-import { getWalletFromLocal } from '../utils/localstore';
+import { ChainType, WalletCollection, WalletTypes } from '../utils/wallet/types';
+import { getWalletFromLocal } from '../utils/localStore';
 import { useConnector, useAccounts, useBTCProvider } from '@particle-network/btc-connectkit';
 import { BtcWalletArr, EvmWalletArr } from '../utils/wallet';
 
@@ -62,7 +62,8 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       w === WalletTypes.WALLET_OKX_EVM ||
       w === WalletTypes.WALLET_GATE ||
       w === WalletTypes.WALLET_BYBIT_EVM ||
-      w === WalletTypes.WALLET_COIN98_EVM
+      w === WalletTypes.WALLET_COIN98_EVM ||
+      w === WalletTypes.WALLET_FOX_EVM
     ) {
       setCurrentWallet(w)
       return
@@ -82,6 +83,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       return
     } if (w === WalletTypes.WALLET_COIN98_BTC && !isBtcConnected) {
       await connect("coin98")
+      setCurrentWallet(w)
+      return
+    } if (w === WalletTypes.WALLET_FOX_BTC && !isBtcConnected) {
+      await connect("fox")
       setCurrentWallet(w)
       return
     }
