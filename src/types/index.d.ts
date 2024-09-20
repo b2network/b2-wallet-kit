@@ -20,6 +20,7 @@ interface Window {
   tomo_evm: any,
   tomo_btc: any,
   coin98: any,
+  foxwallet: any,
   unisat: {
     requestAccounts: () => Promise<string[]>;
     getPublicKey: () => Promise<string>;

@@ -6,15 +6,17 @@ import iconTomo from '../../imgs/tomo.png'
 import iconUnisat from '../../imgs/icon_unisat.svg'
 import iconBybit from '../../imgs/bybit.png'
 import iconCoin98 from '../../imgs/icon_coin98.svg'
+import iconFox from '../../imgs/icon_fox.png'
 export type InstalledObj = Record<WalletTypes, boolean>
-export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx'
+export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx' | 'fox'
 
 export const BtcWalletArr = [
   WalletTypes.WALLET_OKX_BTC,
   WalletTypes.WALLET_TOMO_BTC,
   WalletTypes.WALLET_UNISAT,
   WalletTypes.WALLET_BYBIT_BTC,
-  WalletTypes.WALLET_COIN98_BTC
+  WalletTypes.WALLET_COIN98_BTC,
+  WalletTypes.WALLET_FOX_BTC
 ]
 export const EvmWalletArr = [
   WalletTypes.WALLET_GATE,
@@ -22,7 +24,8 @@ export const EvmWalletArr = [
   WalletTypes.WALLET_BYBIT_EVM,
   WalletTypes.WALLET_OKX_EVM,
   WalletTypes.WALLET_TOMO_EVM,
-  WalletTypes.WALLET_COIN98_EVM
+  WalletTypes.WALLET_COIN98_EVM,
+  WalletTypes.WALLET_FOX_EVM
 ]
 export const defaultInstalledMap: InstalledObj = {
   metamask: false,
@@ -35,7 +38,9 @@ export const defaultInstalledMap: InstalledObj = {
   bybit_evm: false,
   bybit_btc: false,
   coin98_btc: false,
-  coin98_evm: false
+  coin98_evm: false,
+  fox_btc: false,
+  fox_evm: false
 }
 
 export const evmWalletNameTransformer = (wallet: string): WalletTypes | undefined => {
@@ -58,6 +63,9 @@ export const evmWalletNameTransformer = (wallet: string): WalletTypes | undefine
   if (wallet?.toLocaleLowerCase().includes('coin98')) {
     name = WalletTypes.WALLET_COIN98_EVM
   }
+  if (wallet?.toLocaleLowerCase().includes('fox')) {
+    name = WalletTypes.WALLET_FOX_EVM
+  }
   return name
 }
 
@@ -77,6 +85,9 @@ export const btcWalletNameTransformer = (wallet: string): WalletTypes | undefine
   }
   if (wallet?.toLocaleLowerCase().includes('coin98')) {
     name = WalletTypes.WALLET_COIN98_BTC
+  }
+  if (wallet?.toLocaleLowerCase().includes('fox')) {
+    name = WalletTypes.WALLET_FOX_BTC
   }
   return name
 }
@@ -104,6 +115,10 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
     installed.coin98_btc = true
     installed.coin98_evm = true
   }
+  if (window.foxwallet) {
+    installed.fox_btc = true
+    installed.fox_evm = true
+  }
   return installed
 }
 export const getBtcWalletName = (wallet: string) => {
@@ -112,6 +127,7 @@ export const getBtcWalletName = (wallet: string) => {
   if (wallet.toLocaleLowerCase().includes('tomo')) return 'Tomo Wallet'
   if (wallet.toLocaleLowerCase().includes('bybit')) return 'Bybit Wallet'
   if (wallet.toLocaleLowerCase().includes('coin98')) return 'Coin98 Wallet'
+  if (wallet.toLocaleLowerCase().includes('fox')) return 'Fox Wallet'
   return ''
 }
 export const WalletIconConf = [
@@ -132,5 +148,7 @@ export const WalletIconConf = [
   },
   {
     name: 'coin98', icon: iconCoin98
+  }, {
+    name: 'fox', icon: iconFox
   }
 ]

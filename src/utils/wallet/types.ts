@@ -1,10 +1,3 @@
-export enum BtcConnectorName {
-  Unisat = 'Unisat',
-  OKX = 'OKX',
-  Tomo = 'Tomo',
-  Bybit = 'Bybit',
-  Coin98 = 'Coin98'
-}
 export type Network = 'livenet' | 'testnet'
 
 export type InstalledMap = Record<WalletTypes, boolean>
@@ -25,7 +18,9 @@ export enum WalletTypes {
   WALLET_BYBIT_EVM = 'bybit_evm',
   WALLET_BYBIT_BTC = 'bybit_btc',
   WALLET_COIN98_BTC = 'coin98_btc',
-  WALLET_COIN98_EVM = 'coin98_evm'
+  WALLET_COIN98_EVM = 'coin98_evm',
+  WALLET_FOX_BTC = 'fox_btc',
+  WALLET_FOX_EVM = 'fox_evm'
 }
 
 export enum ChainType {
