@@ -12,7 +12,8 @@ import ModalHeader from "./ModalHeader";
 import { useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
 import { useB2Disconnect } from "../../hooks/useB2Disconnect";
-import { btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName, getWalletIconByName } from "../../utils/wallet";
+import { btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName, } from "../../utils/wallet";
+import { getWalletIconByName } from "../../utils/wallet/getWalletIconByName";
 
 
 const SubTitle = ({ title }: { title: string }) => {
