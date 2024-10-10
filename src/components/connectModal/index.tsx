@@ -99,6 +99,12 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     }
   }, [openConnectModal])
 
+  const evmWalletNameFormat = (name: string) => {
+    if (name.toLowerCase().includes('binance')) return 'Binance Wallet'
+    return name
+  }
+
+
   return (
     <Modal
       isOpen={openConnectModal}
@@ -124,7 +130,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                           handleClickEthWallet(c)
                         }
                       }} key={c.name}>
-                      <WalletItem installed={installed} walletIcon={getWalletIconByName(c.name) || c.icon} walletName={c.name} />
+                      <WalletItem installed={installed} walletIcon={getWalletIconByName(c.name) || c.icon} walletName={evmWalletNameFormat(c.name)} />
                     </div>
                   )
                 })

@@ -144,6 +144,9 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
   if (!isMobile) {
     installed.binance_evm = true
   }
+  if (isMobile && window?.ethereum?.isBinance) {
+    installed.binance_evm = true
+  }
   if (window?.binancew3w?.bitcoin) {
     installed.binance_btc = true
   }
