@@ -39,6 +39,7 @@
     "typegen:watch": "tsc --emitDeclarationOnly --watch"
   },
   "dependencies": {
+    "react-device-detect": "^2.2.3",
     "react-modal": "^3.16.1"
   },
   "devDependencies": {

@@ -57,14 +57,7 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
 
   const autoConnect = async () => {
     const w = getWalletFromLocal()
-    if (
-      w === WalletTypes.WALLET_METAMASK ||
-      w === WalletTypes.WALLET_OKX_EVM ||
-      w === WalletTypes.WALLET_GATE ||
-      w === WalletTypes.WALLET_BYBIT_EVM ||
-      w === WalletTypes.WALLET_COIN98_EVM ||
-      w === WalletTypes.WALLET_FOX_EVM
-    ) {
+    if (w && EvmWalletArr.includes(w)) {
       setCurrentWallet(w)
       return
     }
@@ -87,6 +80,18 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       return
     } if (w === WalletTypes.WALLET_FOX_BTC && !isBtcConnected) {
       await connect("fox")
+      setCurrentWallet(w)
+      return
+    } if (w === WalletTypes.WALLET_XVERSE && !isBtcConnected) {
+      await connect("xverse")
+      setCurrentWallet(w)
+      return
+    } if (w === WalletTypes.WALLET_BINANCE_BTC && !isBtcConnected) {
+      await connect("binance")
+      setCurrentWallet(w)
+      return
+    } if (w === WalletTypes.WALLET_BITGET_BTC && !isBtcConnected) {
+      await connect("bitget")
       setCurrentWallet(w)
       return
     }

@@ -21,6 +21,10 @@ interface Window {
   tomo_btc: any,
   coin98: any,
   foxwallet: any,
+  tokenpocket: any,
+  bitkeep: any,
+  XverseProviders: any,
+  binancew3w: any,
   unisat: {
     requestAccounts: () => Promise<string[]>;
     getPublicKey: () => Promise<string>;

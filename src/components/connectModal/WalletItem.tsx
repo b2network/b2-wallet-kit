@@ -1,3 +1,4 @@
+import { getDownloadUrlByKey } from '../../utils/index';
 import styles from './index.module.scss';
 
 type Iprops = {
@@ -21,12 +22,12 @@ const WalletItem = ({ walletIcon, walletName, installed }: Iprops) => {
         <div>{walletName}</div>
       </div>
       <div className={styles.right}>
-        {/* {
+        {
           !installed && <div className={styles.install} onClick={() => {
             const url = getDownloadUrlByKey(walletName)
             url && window.open(url)
           }}>Install</div>
-        } */}
+        }
       </div>
     </div>
   )
