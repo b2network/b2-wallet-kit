@@ -11,7 +11,7 @@ export const saveWalletToLocal = (w: WalletTypes) => {
 }
 
 export const getWalletFromLocal = () => {
-  return localStorage.getItem(KEY_WALLET) || undefined
+  return localStorage.getItem(KEY_WALLET) as WalletTypes || undefined
 }
 export const clearWalletFromLocal = () => {
   localStorage.removeItem(KEY_WALLET)

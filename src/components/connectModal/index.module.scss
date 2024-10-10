@@ -3,10 +3,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #ffffff;
   min-width: 508px;
+  width: 680px;
   @media only screen and (max-width: 600px) {
     min-width: 100%;
+    width: 100%;
   }
   height: 600px;
   min-height: 200px;
@@ -50,7 +52,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
-      padding: 12px 24px;
+      padding: 10px 24px;
       cursor: pointer;
       border: 1px solid #000;
       border-radius: 4px;
@@ -62,6 +64,8 @@
         gap: 16px;
         align-items: center;
         white-space: nowrap;
+        font-weight: bold;
+        font-size: 1rem;
         @media only screen and (max-width: 600px) {
           gap: 10px;
         }

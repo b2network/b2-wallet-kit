@@ -1,14 +1,8 @@
 import { WalletTypes } from "./types";
-import iconMetamask from '../../imgs/icon_metamask.png'
-import iconOkx from '../../imgs/icon_okx.svg'
-import iconGate from '../../imgs/icon_gate.svg'
-import iconTomo from '../../imgs/tomo.png'
-import iconUnisat from '../../imgs/icon_unisat.svg'
-import iconBybit from '../../imgs/bybit.png'
-import iconCoin98 from '../../imgs/icon_coin98.svg'
-import iconFox from '../../imgs/icon_fox.png'
+import { isMobile } from 'react-device-detect'
+
 export type InstalledObj = Record<WalletTypes, boolean>
-export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx' | 'fox'
+export type EvmConnectorName = 'gate' | 'metamask' | 'bybit' | 'okx' | 'fox' | 'tokenpocket' | 'bitget' | 'binance' | 'tomo' | 'coin98'
 
 export const BtcWalletArr = [
   WalletTypes.WALLET_OKX_BTC,
@@ -16,7 +10,10 @@ export const BtcWalletArr = [
   WalletTypes.WALLET_UNISAT,
   WalletTypes.WALLET_BYBIT_BTC,
   WalletTypes.WALLET_COIN98_BTC,
-  WalletTypes.WALLET_FOX_BTC
+  WalletTypes.WALLET_FOX_BTC,
+  WalletTypes.WALLET_BITGET_BTC,
+  WalletTypes.WALLET_BINANCE_BTC,
+  WalletTypes.WALLET_XVERSE
 ]
 export const EvmWalletArr = [
   WalletTypes.WALLET_GATE,
@@ -25,7 +22,10 @@ export const EvmWalletArr = [
   WalletTypes.WALLET_OKX_EVM,
   WalletTypes.WALLET_TOMO_EVM,
   WalletTypes.WALLET_COIN98_EVM,
-  WalletTypes.WALLET_FOX_EVM
+  WalletTypes.WALLET_FOX_EVM,
+  WalletTypes.WALLET_BITGET_EVM,
+  WalletTypes.WALLET_TOKENPOCKET,
+  WalletTypes.WALLET_BINANCE_EVM
 ]
 export const defaultInstalledMap: InstalledObj = {
   metamask: false,
@@ -40,7 +40,13 @@ export const defaultInstalledMap: InstalledObj = {
   coin98_btc: false,
   coin98_evm: false,
   fox_btc: false,
-  fox_evm: false
+  fox_evm: false,
+  tokenpocket: false,
+  bitget_evm: false,
+  bitget_btc: false,
+  binance_evm: false,
+  binance_btc: false,
+  xverse: false
 }
 
 export const evmWalletNameTransformer = (wallet: string): WalletTypes | undefined => {
@@ -66,6 +72,15 @@ export const evmWalletNameTransformer = (wallet: string): WalletTypes | undefine
   if (wallet?.toLocaleLowerCase().includes('fox')) {
     name = WalletTypes.WALLET_FOX_EVM
   }
+  if (wallet?.toLocaleLowerCase().includes('bitget')) {
+    name = WalletTypes.WALLET_BITGET_EVM
+  }
+  if (wallet?.toLocaleLowerCase().includes('tokenpocket')) {
+    name = WalletTypes.WALLET_TOKENPOCKET
+  }
+  if (wallet?.toLocaleLowerCase().includes('binance')) {
+    name = WalletTypes.WALLET_BINANCE_EVM
+  }
   return name
 }
 
@@ -88,6 +103,13 @@ export const btcWalletNameTransformer = (wallet: string): WalletTypes | undefine
   }
   if (wallet?.toLocaleLowerCase().includes('fox')) {
     name = WalletTypes.WALLET_FOX_BTC
+  }
+  if (wallet?.toLocaleLowerCase().includes('xverse')) {
+    name = WalletTypes.WALLET_XVERSE
+  } if (wallet?.toLocaleLowerCase().includes('bitget')) {
+    name = WalletTypes.WALLET_BITGET_BTC
+  } if (wallet?.toLocaleLowerCase().includes('binance')) {
+    name = WalletTypes.WALLET_BINANCE_BTC
   }
   return name
 }
@@ -119,6 +141,19 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
     installed.fox_btc = true
     installed.fox_evm = true
   }
+  if (!isMobile) {
+    installed.binance_evm = true
+  }
+  if (window?.binancew3w?.bitcoin) {
+    installed.binance_btc = true
+  }
+  if (window.bitkeep) {
+    installed.bitget_btc = true;
+    installed.bitget_evm = true;
+  }
+  if (window.tokenpocket) {
+    installed.tokenpocket = true;
+  }
   return installed
 }
 export const getBtcWalletName = (wallet: string) => {
@@ -128,27 +163,24 @@ export const getBtcWalletName = (wallet: string) => {
   if (wallet.toLocaleLowerCase().includes('bybit')) return 'Bybit Wallet'
   if (wallet.toLocaleLowerCase().includes('coin98')) return 'Coin98 Wallet'
   if (wallet.toLocaleLowerCase().includes('fox')) return 'Fox Wallet'
+  if (wallet.toLocaleLowerCase().includes('bitget')) return 'Bitget Wallet'
+  if (wallet.toLocaleLowerCase().includes('xverse')) return 'Xverse Wallet'
+  if (wallet.toLocaleLowerCase().includes('binance')) return 'Binance Wallet'
   return ''
 }
-export const WalletIconConf = [
-  {
-    name: 'metamask', icon: iconMetamask,
-  }, {
-    name: 'okx', icon: iconOkx,
-  }, {
-    name: 'unisat', icon: iconUnisat,
-  }, {
-    name: 'tomo', icon: iconTomo,
-  },
-  {
-    name: 'bybit', icon: iconBybit
-  },
-  {
-    name: 'gate', icon: iconGate
-  },
-  {
-    name: 'coin98', icon: iconCoin98
-  }, {
-    name: 'fox', icon: iconFox
-  }
-]
+
+export const getWalletIconByName = (name: string) => {
+  if (name.toLowerCase().includes('metamask')) return 'https://b2-static.bsquared.network/wallet/metamask.png';
+  if (name.toLowerCase().includes('okx')) return 'https://b2-static.bsquared.network/wallet/okx.png'
+  if (name.toLowerCase().includes('unisat')) return 'https://b2-static.bsquared.network/wallet/unisat.png'
+  if (name.toLowerCase().includes('tomo')) return 'https://b2-static.bsquared.network/wallet/tomo.png'
+  if (name.toLowerCase().includes('bybit')) return 'https://b2-static.bsquared.network/wallet/bybit.png'
+  if (name.toLowerCase().includes('coin98')) return 'https://b2-static.bsquared.network/wallet/icon_coin98.svg'
+  if (name.toLowerCase().includes('fox')) return 'https://b2-static.bsquared.network/wallet/icon_fox.png'
+  if (name.toLowerCase().includes('binance')) return 'https://b2-static.bsquared.network/wallet/icon_binance.svg'
+  if (name.toLowerCase().includes('tokenpocket')) return 'https://b2-static.bsquared.network/wallet/tokenpocket.svg'
+  if (name.toLowerCase().includes('gate')) return 'https://b2-static.bsquared.network/wallet/icon_gate.svg'
+  if (name.toLowerCase().includes('bitget')) return 'https://b2-static.bsquared.network/wallet/bitget_wallet.png'
+  if (name.toLowerCase().includes('xverse')) return 'https://b2-static.bsquared.network/wallet/xverse.png'
+  return ''
+}

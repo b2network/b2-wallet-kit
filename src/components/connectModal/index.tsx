@@ -12,7 +12,7 @@ import ModalHeader from "./ModalHeader";
 import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
 import { useB2Disconnect } from "../../hooks/useB2Disconnect";
-import { WalletIconConf, btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName } from "../../utils/wallet";
+import { btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName, getWalletIconByName } from "../../utils/wallet";
 
 
 const SubTitle = ({ title }: { title: string }) => {
@@ -42,9 +42,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
     return collection === WalletCollection.ALL || collection === WalletCollection.BTC
   }, [collection])
 
-  const getImageUrl = (wallet: string) => {
-    return WalletIconConf.find(v => wallet?.toLocaleLowerCase().includes(v.name))?.icon || ''
-  }
+
 
   const getInstalled = useCallback((wallet: string, walletType: 'evm' | 'btc') => {
     if (walletType === 'evm') {
@@ -126,7 +124,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                           handleClickEthWallet(c)
                         }
                       }} key={c.name}>
-                      <WalletItem installed={installed} walletIcon={getImageUrl(c.name) || c.icon} walletName={c.name} />
+                      <WalletItem installed={installed} walletIcon={getWalletIconByName(c.name) || c.icon} walletName={c.name} />
                     </div>
                   )
                 })
@@ -150,7 +148,7 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
                           connectBtcWallet(c.metadata.id)
                         }
                       }}>
-                      <WalletItem installed={installed} walletIcon={getImageUrl(c.metadata.id)} walletName={name} />
+                      <WalletItem installed={installed} walletIcon={getWalletIconByName(c.metadata.id)} walletName={name} />
                     </div>
                   )
                 })
