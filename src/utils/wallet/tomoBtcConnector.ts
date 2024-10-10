@@ -6,7 +6,7 @@ export class TomoConnector extends InjectedConnector {
   readonly metadata: WalletMetadata = {
     id: 'tomo',
     name: 'Tomo Wallet',
-    icon: '/assets/tomo.png',
+    icon: 'https://b2-static.bsquared.network/wallet/tomo.png',
     downloadUrl: 'https://www.okx.com/download',
   };
   constructor() {

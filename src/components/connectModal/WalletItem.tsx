@@ -1,3 +1,4 @@
+import { isMobile } from 'react-device-detect';
 import { getDownloadUrlByKey } from '../../utils/index';
 import styles from './index.module.scss';
 
@@ -23,7 +24,7 @@ const WalletItem = ({ walletIcon, walletName, installed }: Iprops) => {
       </div>
       <div className={styles.right}>
         {
-          !installed && <div className={styles.install} onClick={() => {
+          !installed && !isMobile && <div className={styles.install} onClick={() => {
             const url = getDownloadUrlByKey(walletName)
             url && window.open(url)
           }}>Install</div>

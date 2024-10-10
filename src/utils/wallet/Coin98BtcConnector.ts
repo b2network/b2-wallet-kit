@@ -6,7 +6,7 @@ export class Coin98Connector extends InjectedConnector {
   readonly metadata: WalletMetadata = {
     id: 'coin98',
     name: 'Coin98 Wallet',
-    icon: '/assets/icon_coin98.svg',
+    icon: 'https://b2-static.bsquared.network/wallet/icon_coin98.svg',
     downloadUrl: 'https://coin98.com/wallet',
   };
   constructor() {

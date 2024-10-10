@@ -10,8 +10,7 @@
     min-width: 100%;
     width: 100%;
   }
-  height: 600px;
-  min-height: 200px;
+  min-height: 600px;
   border-radius: 10px;
   color: black;
   overflow-y: auto;
@@ -29,7 +28,7 @@
     border-top-left-radius: 10px;
   }
   .content {
-    padding: 24px;
+    padding: 20px 24px;
     .title {
       display: flex;
       align-items: center;
@@ -37,6 +36,9 @@
       font-weight: 600;
       font-size: 20px;
       margin-bottom: 12px;
+      @media only screen and (max-width: 600px) {
+        font-size: 18px;
+      }
     }
     .row {
       display: flex;
@@ -51,27 +53,28 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 10px 24px;
+      margin-bottom: 10px;
+      padding: 10px 22px;
       cursor: pointer;
       border: 1px solid #000;
       border-radius: 4px;
       @media only screen and (max-width: 600px) {
-        padding: 12px 8px;
+        padding: 6px 8px;
       }
       .left {
         display: flex;
-        gap: 16px;
+        gap: 10px;
         align-items: center;
         white-space: nowrap;
         font-weight: bold;
         font-size: 1rem;
         @media only screen and (max-width: 600px) {
-          gap: 10px;
+          gap: 8px;
+          font-weight: normal;
         }
         .walletLogo {
-          width: 32px;
-          height: 32px;
+          width: 24px;
+          height: 24px;
           @media only screen and (max-width: 600px) {
             width: 20px;
             height: 20px;
@@ -81,13 +84,13 @@
       .right {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 10px;
         .install {
           background: #000;
           color: white;
           border-radius: 20px;
           cursor: pointer;
-          padding: 4px 20px;
+          padding: 2px 15px;
           opacity: 1;
         }
       }

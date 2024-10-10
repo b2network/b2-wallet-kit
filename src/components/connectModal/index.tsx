@@ -9,7 +9,7 @@ import iconType from '../../imgs/icon_type.svg'
 import { saveWalletToLocal } from "../../utils";
 import WalletItem from "./WalletItem";
 import ModalHeader from "./ModalHeader";
-import { useConnectModal, useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
+import { useConnector as useBtcConnector } from '@particle-network/btc-connectkit';
 import styles from './index.module.scss';
 import { useB2Disconnect } from "../../hooks/useB2Disconnect";
 import { btcWalletNameTransformer, checkWalletInstall, defaultInstalledMap, evmWalletNameTransformer, getBtcWalletName, getWalletIconByName } from "../../utils/wallet";

@@ -154,6 +154,9 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
   if (window.tokenpocket) {
     installed.tokenpocket = true;
   }
+  if (window.XverseProviders) {
+    installed.xverse = true
+  }
   return installed
 }
 export const getBtcWalletName = (wallet: string) => {
