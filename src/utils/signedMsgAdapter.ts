@@ -1,5 +1,6 @@
 import { concatHex } from "viem";
 import { WalletTypes } from "./wallet/types";
+import { BtcWalletArr } from "./wallet";
 
 enum ConnectorTypeCode {
   eth = '0x00',
@@ -34,22 +35,14 @@ export const signedMsgAdapter = (sig: string, w: WalletTypes) => {
 const getWalletCode = (w: WalletTypes) => {
   let chainTypeCode: `0x${string}` = '0x';
   let walletCode: `0x${string}` = '0x';
-  if (w === WalletTypes.WALLET_METAMASK) {
+  if (BtcWalletArr.includes(w)) {
+    chainTypeCode = ConnectorTypeCode.btc
+    walletCode = WalletTypeCode.unisat
+  } else {
     chainTypeCode = ConnectorTypeCode.eth
     walletCode = WalletTypeCode.metamask
   }
-  if (w === WalletTypes.WALLET_OKX_EVM) {
-    chainTypeCode = ConnectorTypeCode.eth
-    walletCode = WalletTypeCode.okx_eth
-  }
-  if (w === WalletTypes.WALLET_UNISAT) {
-    chainTypeCode = ConnectorTypeCode.btc
-    walletCode = WalletTypeCode.unisat
-  }
-  if (w === WalletTypes.WALLET_OKX_BTC) {
-    chainTypeCode = ConnectorTypeCode.btc
-    walletCode = WalletTypeCode.okx_btc
-  }
+
   return {
     chainTypeCode,
     walletCode
