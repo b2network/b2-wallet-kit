@@ -10,7 +10,6 @@
     min-width: 100%;
     width: 100%;
   }
-  min-height: 600px;
   border-radius: 10px;
   color: black;
   overflow-y: auto;
@@ -30,6 +29,7 @@
   }
   .content {
     padding: 20px 24px;
+    padding-bottom: 40px;
     .title {
       display: flex;
       align-items: center;
@@ -97,6 +97,15 @@
           line-height: 24px;
         }
       }
+    }
+  }
+  .privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    .link {
+      color: #ffa728;
     }
   }
 }

@@ -165,6 +165,10 @@ const ConnectModal = ({ collection }: { collection: WalletCollection }) => {
           </div>
         }
       </div>
+      <div className={styles.privacy}>
+        <span>By logging in I agree to the </span>
+        <a className={styles.link} href="https://www.bsquared.network/terms-of-service">Terms of Service</a> <span> and </span> <a className={styles.link} href="https://www.bsquared.network/privacy-policy">Privacy Policy</a>
+      </div>
     </Modal>
   )
 }
