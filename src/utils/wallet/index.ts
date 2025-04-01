@@ -13,7 +13,8 @@ export const BtcWalletArr = [
   WalletTypes.WALLET_FOX_BTC,
   WalletTypes.WALLET_BITGET_BTC,
   WalletTypes.WALLET_BINANCE_BTC,
-  WalletTypes.WALLET_XVERSE
+  WalletTypes.WALLET_XVERSE,
+  WalletTypes.WALLET_GATE_BTC
 ]
 export const EvmWalletArr = [
   WalletTypes.WALLET_GATE,
@@ -33,6 +34,7 @@ export const defaultInstalledMap: InstalledObj = {
   okx_btc: false,
   okx_evm: false,
   gate: false,
+  gate_btc: false,
   tomo_evm: false,
   tomo_btc: false,
   bybit_evm: false,
@@ -92,6 +94,9 @@ export const btcWalletNameTransformer = (wallet: string): WalletTypes | undefine
   if (wallet?.toLocaleLowerCase().includes('okx')) {
     name = WalletTypes.WALLET_OKX_BTC
   }
+  if (wallet?.toLocaleLowerCase().includes('gate')) {
+    name = WalletTypes.WALLET_GATE_BTC
+  }
   if (wallet?.toLocaleLowerCase().includes('tomo')) {
     name = WalletTypes.WALLET_TOMO_BTC
   }
@@ -120,7 +125,10 @@ export const checkWalletInstall = (i: InstalledObj): InstalledObj => {
   }
   if (window.unisat) installed.unisat = true;
   if (window.ethereum) installed.metamask = true;
-  if (window.gatewallet) installed.gate = true;
+  if (window.gatewallet) {
+    installed.gate = true;
+    installed.gate_btc = true;
+  }
   if (window.okxwallet) {
     installed.okx_btc = true;
     installed.okx_evm = true
@@ -172,6 +180,7 @@ export const getBtcWalletName = (wallet: string) => {
   if (wallet.toLocaleLowerCase().includes('bitget')) return 'Bitget Wallet'
   if (wallet.toLocaleLowerCase().includes('xverse')) return 'Xverse Wallet'
   if (wallet.toLocaleLowerCase().includes('binance')) return 'Binance Wallet'
+  if (wallet.toLocaleLowerCase().includes('gate')) return 'Gate Wallet'
   return ''
 }
 
