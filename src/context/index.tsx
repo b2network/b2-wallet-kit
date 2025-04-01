@@ -65,6 +65,10 @@ export const B2ModalProvider: FC<{ children: ReactNode, isAutoConnect?: boolean,
       await connect("unisat")
       setCurrentWallet(w)
       return
+    } if (w === WalletTypes.WALLET_GATE_BTC && !isBtcConnected) {
+      await connect("gate")
+      setCurrentWallet(w)
+      return
     }
     if (w === WalletTypes.WALLET_OKX_BTC && !isBtcConnected) {
       await connect("okx")

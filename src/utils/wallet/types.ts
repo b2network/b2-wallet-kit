@@ -13,6 +13,7 @@ export enum WalletTypes {
   WALLET_OKX_EVM = 'okx_evm',
   WALLET_OKX_BTC = 'okx_btc',
   WALLET_GATE = 'gate',
+  WALLET_GATE_BTC = 'gate_btc',
   WALLET_TOMO_EVM = 'tomo_evm',
   WALLET_TOMO_BTC = 'tomo_btc',
   WALLET_BYBIT_EVM = 'bybit_evm',
