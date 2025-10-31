@@ -49,8 +49,8 @@ export const b2TestHabitat = defineChain({
   },
 })
 export const b2Testnet = defineChain({
-  id: 1123,
-  name: 'B2-Testnet',
+  id: 1163,
+  name: 'B2 Testnet',
   network: 'B2 Testnet ',
   nativeCurrency: {
     decimals: 18,
@@ -59,16 +59,16 @@ export const b2Testnet = defineChain({
   },
   blockExplorers: {
     default: {
-      name: 'B2-Testnet',
+      name: 'B2 Testnet',
       url: 'https://testnet-explorer.bsquared.network'
     }
   },
   rpcUrls: {
     default: {
-      http: ['https://b2-testnet.alt.technology'],
+      http: ['https://testnet-rpc.bsquared.network'],
     },
     public: {
-      http: ['https://b2-testnet.alt.technology'],
+      http: ['https://testnet-rpc.bsquared.network'],
     },
   },
 })
